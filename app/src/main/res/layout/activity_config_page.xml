@@ -234,7 +234,7 @@
     </ImageView>
 
     <Button
-        android:id="@+id/startGameBttn"
+        android:id="@+id/goToGame"
         android:layout_width="153dp"
         android:layout_height="93dp"
         android:text="Finish"
