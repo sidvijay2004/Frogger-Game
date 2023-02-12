@@ -23,8 +23,9 @@ public class ConfigPage extends AppCompatActivity {
         game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ConfigPage.this, Game.class);
-                startActivity(intent);            }
+                Intent intent = new Intent(ConfigPage.this, GameScreen.class);
+                startActivity(intent);
+            }
         });
     }
 }
