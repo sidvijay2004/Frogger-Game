@@ -115,7 +115,7 @@
             android:id="@+id/DifficultyThree"
             android:layout_width="260dp"
             android:layout_height="28dp"
-            android:text="Difficult"
+            android:text="Intermediate"
             tools:layout_editor_absoluteX="11dp"
             tools:layout_editor_absoluteY="417dp">
 
@@ -125,7 +125,7 @@
             android:id="@+id/DifficultyTwo"
             android:layout_width="260dp"
             android:layout_height="28dp"
-            android:text="Intermediate">
+            android:text="Difficult">
 
         </RadioButton>
 
@@ -224,8 +224,12 @@
         android:layout_width="69dp"
         android:layout_height="74dp"
         android:src="@drawable/character_three"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="445dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.677">
 
     </ImageView>
 
