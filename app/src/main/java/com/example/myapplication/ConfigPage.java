@@ -8,15 +8,14 @@ import android.view.View;
 import android.widget.Button;
 
 public class ConfigPage extends AppCompatActivity {
-
     private Button game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config_page);
+        setUpConfigPage(savedInstanceState);
     }
-
 
     public void setUpConfigPage(Bundle savedInstanceState) {
 
