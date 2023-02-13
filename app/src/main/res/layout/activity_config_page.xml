@@ -76,7 +76,7 @@
         app:layout_constraintVertical_bias="0.36" />
 
     <EditText
-        android:id="@+id/configPage"
+        android:id="@+id/personName"
         android:layout_width="255dp"
         android:layout_height="40dp"
         android:ems="10"
@@ -112,7 +112,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/DifficultyThree"
+            android:id="@+id/DifficultyTwo"
             android:layout_width="260dp"
             android:layout_height="28dp"
             android:text="Intermediate"
@@ -122,7 +122,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/DifficultyTwo"
+            android:id="@+id/DifficultyThree"
             android:layout_width="260dp"
             android:layout_height="28dp"
             android:text="Difficult">
@@ -133,6 +133,7 @@
 
 
     <ImageView
+        android:id= "@+id/characterone"
         android:layout_width="73dp"
         android:layout_height="70dp"
         android:src="@drawable/character_one"
@@ -141,20 +142,21 @@
         app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.785">
+        app:layout_constraintVertical_bias="0.679">
 
     </ImageView>
 
     <ImageView
+        android:id = "@+id/charactertwo"
         android:layout_width="72dp"
         android:layout_height="66dp"
         android:src="@drawable/character_two"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintHorizontal_bias="0.132"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.902">
+        app:layout_constraintVertical_bias="0.796">
 
     </ImageView>
 
@@ -192,7 +194,7 @@
         app:layout_constraintVertical_bias="0.965">
 
         <RadioButton
-            android:id="@+id/CharacterThree"
+            android:id="@+id/CharacterOne"
             android:layout_width="28dp"
             android:layout_height="75dp"
             tools:layout_editor_absoluteX="303dp"
@@ -201,7 +203,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/CharacterOne"
+            android:id="@+id/CharacterTwo"
             android:layout_width="28dp"
             android:layout_height="75dp"
             tools:layout_editor_absoluteX="191dp"
@@ -210,7 +212,7 @@
         </RadioButton>
 
         <RadioButton
-            android:id="@+id/CharacterTwo"
+            android:id="@+id/CharacterThree"
             android:layout_width="28dp"
             android:layout_height="75dp"
             tools:layout_editor_absoluteX="84dp"
@@ -226,10 +228,10 @@
         android:src="@drawable/character_three"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.677">
+        app:layout_constraintVertical_bias="0.907">
 
     </ImageView>
 

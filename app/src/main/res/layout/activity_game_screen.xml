@@ -9,8 +9,8 @@
 
     <TextView
         android:id="@+id/initGameTitle"
-        android:layout_width="400dp"
-        android:layout_height="124dp"
+        android:layout_width="331dp"
+        android:layout_height="87dp"
         android:shadowRadius="@dimen/material_emphasis_disabled"
         android:singleLine="false"
         android:soundEffectsEnabled="true"
@@ -24,10 +24,91 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026" />
+        app:layout_constraintVertical_bias="0.049" />
+
+
+    <TextView
+        android:id="@+id/nameGameScreen"
+        android:layout_width="331dp"
+        android:layout_height="68dp"
+        android:shadowRadius="@dimen/material_emphasis_disabled"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#8958E1"
+        android:textColorHighlight="#3F51B5"
+        android:textColorHint="#C18989"
+        android:textColorLink="#D1C1C1"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.179" />
+
+    <TextView
+        android:id="@+id/difficultyAndNumLives"
+        android:layout_width="272dp"
+        android:layout_height="37dp"
+        android:shadowRadius="@dimen/material_emphasis_disabled"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#8958E1"
+        android:textColorHighlight="#3F51B5"
+        android:textColorHint="#C18989"
+        android:textColorLink="#D1C1C1"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.269" />
+
+    <TextView
+        android:id="@+id/startingPoints"
+        android:layout_width="272dp"
+        android:layout_height="37dp"
+        android:shadowRadius="@dimen/material_emphasis_disabled"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="Starting Points: 0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#8958E1"
+        android:textColorHighlight="#3F51B5"
+        android:textColorHint="#C18989"
+        android:textColorLink="#D1C1C1"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.322" />
+
+    <ImageView
+        android:id="@+id/sprite"
+        android:layout_width="153dp"
+        android:layout_height="137dp"
+        android:src="@drawable/character_one"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.439">
+
+    </ImageView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
