@@ -4,7 +4,6 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,15 +15,10 @@ import android.widget.TextView;
 
 
 public class ConfigPage extends AppCompatActivity {
-    
-
-
-
     private Button game;
     private EditText name;
     private RadioGroup difficultyGroup;
     private RadioGroup characterGroup;
-
     private ImageButton charSelectLeft;
     private ImageButton charSelectRight;
     private ImageView charImageDisplay;
@@ -44,32 +38,32 @@ public class ConfigPage extends AppCompatActivity {
     }
 
     public void updateCharDisplay() {
-        switch(charSelectionId) {
-            case 0:
-                charImageDisplay.setImageResource(R.drawable.character_one);
-                break;
-            case 1:
-                charImageDisplay.setImageResource(R.drawable.character_two);
-                break;
-            default:
-                charImageDisplay.setImageResource(R.drawable.character_three);
-                break;
+        switch (charSelectionId) {
+        case 0:
+            charImageDisplay.setImageResource(R.drawable.character_one);
+            break;
+        case 1:
+            charImageDisplay.setImageResource(R.drawable.character_two);
+            break;
+        default:
+            charImageDisplay.setImageResource(R.drawable.character_three);
+            break;
         }
     }
 
     public void updateDiffId() {
-        diffId = diffId%3;
+        diffId = diffId % 3;
         String diffText = "";
-        switch(diffId) {
-            case 0:
-                diffText = "EASY";
-                break;
-            case 1:
-                diffText = "MEDIUM";
-                break;
-            default:
-                diffText = "HARD";
-                break;
+        switch (diffId) {
+        case 0:
+            diffText = "EASY";
+            break;
+        case 1:
+            diffText = "MEDIUM";
+            break;
+        default:
+            diffText = "HARD";
+            break;
         }
         difficultySelector.setText(diffText);
     }
@@ -130,57 +124,37 @@ public class ConfigPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (name.getText().toString().trim().equals("")) {
-                } else {
-
+                if (!name.getText().toString().trim().equals("")) {
                     String diffString = difficultySelector.getText().toString();
 
                     Intent intent = new Intent(ConfigPage.this, GameScreen.class);
                     intent.putExtra(NAME_ID, name.getText().toString());
 
-                    switch(charSelectionId) {
-                        case 0:
-                            intent.putExtra("image", R.drawable.character_one);
-                            break;
-                        case 1:
-                            intent.putExtra("image", R.drawable.character_two);
-                            break;
-                        default:
-                            intent.putExtra("image", R.drawable.character_three);
-                            break;
+                    switch (charSelectionId) {
+                    case 0:
+                        intent.putExtra("image", R.drawable.character_one);
+                        break;
+                    case 1:
+                        intent.putExtra("image", R.drawable.character_two);
+                        break;
+                    default:
+                        intent.putExtra("image", R.drawable.character_three);
+                        break;
                     }
-//                    if (characterGroup.getCheckedRadioButtonId() == R.id.CharacterOne) {
-//                        intent.putExtra("image", R.drawable.character_one);
-//                    } else if (characterGroup.getCheckedRadioButtonId() == R.id.CharacterTwo) {
-//                        intent.putExtra("image", R.drawable.character_two);
-//                    } else if (characterGroup.getCheckedRadioButtonId() == R.id.CharacterThree) {
-//                        intent.putExtra("image", R.drawable.character_three);
-//                    }
 
-                    switch(diffString) {
-                        case "MEDIUM":
-                            intent.putExtra("difficulty", "Medium");
-                            intent.putExtra("numLives", 7);
-                            break;
-                        case "HARD":
-                            intent.putExtra("difficulty", "Hard");
-                            intent.putExtra("numLives", 5);
-                            break;
-                        default:
-                            intent.putExtra("difficulty", "Easy");
-                            intent.putExtra("numLives", 10);
+                    switch (diffString) {
+                    case "MEDIUM":
+                        intent.putExtra("difficulty", "Medium");
+                        intent.putExtra("numLives", 7);
+                        break;
+                    case "HARD":
+                        intent.putExtra("difficulty", "Hard");
+                        intent.putExtra("numLives", 5);
+                        break;
+                    default:
+                        intent.putExtra("difficulty", "Easy");
+                        intent.putExtra("numLives", 10);
                     }
-//                    if (difficultyGroup.getCheckedRadioButtonId() == R.id.DifficultyOne) {
-//                        intent.putExtra("difficulty", "Easy");
-//                        intent.putExtra("numLives", 10);
-//                    } else if (difficultyGroup.getCheckedRadioButtonId() == R.id.DifficultyTwo) {
-//                        intent.putExtra("difficulty", "Intermediate");
-//                        intent.putExtra("numLives", 7);
-//                    } else if (difficultyGroup.getCheckedRadioButtonId() == R.id.DifficultyThree) {
-//                        intent.putExtra("difficulty", "Difficult");
-//                        intent.putExtra("numLives", 5);
-//                    }
-
                     startActivity(intent);
 
                 }
