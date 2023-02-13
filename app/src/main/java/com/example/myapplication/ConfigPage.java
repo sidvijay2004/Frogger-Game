@@ -54,11 +54,11 @@ public class ConfigPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (name.getText().toString().equals("")
+                if (name.getText().toString().trim().equals("")
                         || (difficultyGroup.getCheckedRadioButtonId() == -1)
                         || (characterGroup.getCheckedRadioButtonId() == -1)) {
 
-                    System.out.println("Null name");
+                    //System.out.println("Null name");
                 } else {
                     Intent intent = new Intent(ConfigPage.this, GameScreen.class);
                     intent.putExtra(NAME_ID, name.getText().toString());
