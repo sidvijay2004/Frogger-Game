@@ -21,7 +21,7 @@ public class RoadTile extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRect(0, 0, getWidth(), getHeight(), roadPaint);
+        canvas.drawRect(20, 90, 200, 200, roadPaint);
     }
 }
 
