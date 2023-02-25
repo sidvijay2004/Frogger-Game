@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 public class RoadTile extends View {
     private Paint roadPaint;
 
-    public RoadTile(Context context) {
-        super(context);
+    public RoadTile(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
         roadPaint = new Paint();
         roadPaint.setColor(Color.DKGRAY);
     }
