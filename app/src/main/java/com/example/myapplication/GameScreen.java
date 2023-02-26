@@ -1,8 +1,12 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +18,9 @@ public class GameScreen extends AppCompatActivity {
 
     private TextView difficultyAndNumLives;
 
+    private int width;
+    private int bottomHeightBounds;
+    private int upperHeightBounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +42,21 @@ public class GameScreen extends AppCompatActivity {
 
         character.setImageResource(getIntent().getIntExtra("image", 0));
 
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        width = displayMetrics.widthPixels;
+        View startTile = findViewById(R.id.startTile);
+
+        int startTileYPos = (int)startTile.getY();
+        int startTileHeight = startTile.getHeight();
+        bottomHeightBounds = (startTileYPos + startTileHeight/2 - 50);
+
+
     }
 
     @Override
     public boolean onKeyUp(int keycode, KeyEvent keyEvent) {
+
         if (keycode == KeyEvent.KEYCODE_W) {
 
             moveUp();
@@ -57,19 +75,38 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public void moveUp() {
-        if (character.getY() >= 650) {
-            character.setY(character.getY() - 10);
+        character.setY(character.getY() - 10);
+        updateBounds();
+        if (character.getY() < upperHeightBounds) {
+            character.setY(upperHeightBounds);
         }
     }
+    public void updateBounds() {
+        View startTile = findViewById(R.id.startTile);
+        int startTileYPos = (int)startTile.getY();
+        int startTileHeight = startTile.getHeight();
+        bottomHeightBounds = (startTileYPos + startTileHeight/2 - 50);
 
+        View goalTile = findViewById(R.id.goalTile);
+
+        int goalTileYPos = (int)goalTile.getY();
+        int goalTileHeight = goalTile.getHeight();
+        upperHeightBounds = (goalTileYPos);
+
+
+    }
     public void moveDown() {
-        if (character.getY() <= 1940) {
-            character.setY(character.getY() + 10);
+        character.setY(character.getY() + 10);
+
+        updateBounds();
+
+        if(character.getY() > bottomHeightBounds) {
+            character.setY(bottomHeightBounds);
         }
     }
 
     public void moveRight() {
-        if (character.getX() <= 1000) {
+        if (character.getX() <= width - (character.getWidth())) {
             character.setX(character.getX() + 10);
         }
     }
