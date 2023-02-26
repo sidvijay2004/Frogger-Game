@@ -7,40 +7,10 @@
     tools:context=".GameScreen">
 
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="411dp"
-        android:layout_height="79dp"
-        android:background="#0000FF"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <TextView
-        android:id="@+id/initGameTitle"
-        android:layout_width="331dp"
-        android:layout_height="87dp"
-        android:shadowRadius="@dimen/material_emphasis_disabled"
-        android:singleLine="false"
-        android:soundEffectsEnabled="true"
-        android:text="Game"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="#8958E1"
-        android:textColorHighlight="#3F51B5"
-        android:textColorHint="#C18989"
-        android:textColorLink="#D1C1C1"
-        android:textSize="45sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049" />
-
-
     <TextView
         android:id="@+id/nameGameScreen"
-        android:layout_width="331dp"
-        android:layout_height="68dp"
+        android:layout_width="278dp"
+        android:layout_height="51dp"
         android:shadowRadius="@dimen/material_emphasis_disabled"
         android:singleLine="false"
         android:soundEffectsEnabled="true"
@@ -54,10 +24,11 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.179" />
+        app:layout_constraintVertical_bias="0.004" />
+
 
     <TextView
         android:id="@+id/difficultyAndNumLives"
@@ -76,10 +47,10 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.269" />
+        app:layout_constraintVertical_bias="0.077" />
 
     <TextView
         android:id="@+id/startingPoints"
@@ -98,62 +69,81 @@
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.322" />
+        app:layout_constraintVertical_bias="0.129" />
+
+
+    <com.example.myapplication.StartTile
+        android:id="@+id/startTile"
+        android:layout_width="415dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.example.myapplication.GoalTile
+        android:id="@+id/goalTile"
+        android:layout_width="415dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.31" />
+
+    <com.example.myapplication.RiverTile
+        android:id="@+id/riverTile"
+        android:layout_width="431dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.464" />
+
+    <com.example.myapplication.RoadTile
+        android:id="@+id/roadTile"
+        android:layout_width="450dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.893" />
+
+    <com.example.myapplication.NewSafeTile
+        android:id="@+id/newSafeTile"
+        android:layout_width="414dp"
+        android:layout_height="67dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
 
     <ImageView
         android:id="@+id/sprite"
-        android:layout_width="153dp"
-        android:layout_height="137dp"
+        android:layout_width="29dp"
+        android:layout_height="47dp"
+        android:background="@drawable/ic_launcher_foreground"
         android:src="@drawable/character_one"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.439">
+        app:layout_constraintVertical_bias="1.0">
 
     </ImageView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="94dp">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Label" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Score" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:src="@drawable/goaltile"
-            android:tileModeX="repeat" />
-
-        <com.example.myapplication.GameView
-            android:id="@+id/gameView"
-            android:layout_width="match_parent"
-            android:layout_height="178dp" />
-
-        <com.example.myapplication.RoadTile
-            android:id="@+id/roadTile"
-            android:layout_width="match_parent"
-            android:layout_height="178dp" />
-
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
