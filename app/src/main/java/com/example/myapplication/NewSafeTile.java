@@ -9,18 +9,18 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public class GameView extends View {
-    private Paint blockPaint;
-    public GameView(Context context, @Nullable AttributeSet attrs) {
+public class NewSafeTile extends View {
+    private Paint roadPaint;
+
+    public NewSafeTile(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        blockPaint = new Paint();
-        blockPaint.setColor(Color.parseColor("blue"));
+        roadPaint = new Paint();
+        roadPaint.setColor(Color.GRAY);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRect(20, 50, 100, 200, blockPaint);
+        canvas.drawRect(0, 0, 1000000, 400, roadPaint);
     }
-
 }

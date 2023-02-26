@@ -9,13 +9,13 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public class RoadTile extends View {
+public class StartTile extends View {
     private Paint roadPaint;
 
-    public RoadTile(Context context, @Nullable AttributeSet attrs) {
+    public StartTile(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         roadPaint = new Paint();
-        roadPaint.setColor(Color.DKGRAY);
+        roadPaint.setColor(Color.RED);
     }
 
     @Override
@@ -24,3 +24,4 @@ public class RoadTile extends View {
         canvas.drawRect(0, 0, 10000, 1000, roadPaint);
     }
 }
+
