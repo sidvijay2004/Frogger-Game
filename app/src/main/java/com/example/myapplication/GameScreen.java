@@ -14,7 +14,7 @@ public class GameScreen extends AppCompatActivity {
 
     private TextView difficultyAndNumLives;
 
-    private Player mainPlayer = new Player();
+//    private Player mainPlayer;
 
 
     @Override
@@ -31,6 +31,8 @@ public class GameScreen extends AppCompatActivity {
 
         gameScreenName = (TextView) findViewById(R.id.nameGameScreen);
         character = (ImageView) findViewById(R.id.sprite);
+
+
         difficultyAndNumLives = (TextView) findViewById(R.id.difficultyAndNumLives);
 
 
@@ -43,14 +45,14 @@ public class GameScreen extends AppCompatActivity {
                 String.format("Difficulty: %s | Num Lives: %d", difficultyLevel, numLives)
         );
 
-        mainPlayer.setCharImageDisplay(character);
-
-        mainPlayer.setxPos(100);
-        mainPlayer.setyPos(100);
+//        mainPlayer.setCharImageDisplay(character);
+//
+//        mainPlayer.setxPos(100);
+//        mainPlayer.setyPos(100);
 
 //        character.setImageResource(getIntent().getIntExtra("image", 0));
 
-        (mainPlayer.getCharImageDisplay()).setImageResource(getIntent().getIntExtra("image", 0));
+//        (mainPlayer.getCharImageDisplay()).setImageResource(getIntent().getIntExtra("image", 0));
 
     }
 
@@ -60,19 +62,19 @@ public class GameScreen extends AppCompatActivity {
         switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 // Move the character left
-                mainPlayer.setxPos(mainPlayer.getxPos() - 10);
+//                mainPlayer.setxPos(mainPlayer.getxPos() - 10);
                 return true;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 // Move the character right
-                mainPlayer.setxPos(mainPlayer.getxPos() + 10);
+//                mainPlayer.setxPos(mainPlayer.getxPos() + 10);
                 return true;
             case KeyEvent.KEYCODE_DPAD_UP:
                 // Move the character up
-                mainPlayer.setyPos(mainPlayer.getyPos() + 10);
+//                mainPlayer.setyPos(mainPlayer.getyPos() + 10);
                 return true;
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 // Move the character down
-                mainPlayer.setyPos(mainPlayer.getyPos() - 10);
+//                mainPlayer.setyPos(mainPlayer.getyPos() - 10);
                 return true;
             default:
                 return super.onKeyDown(keyCode, event);
