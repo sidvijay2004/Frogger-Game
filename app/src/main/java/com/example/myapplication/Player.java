@@ -97,4 +97,8 @@ public class Player implements Serializable{
         return posY;
     }
 
+    public int getBoundsUp() {
+        return boundsUp;
+    }
+
 }
