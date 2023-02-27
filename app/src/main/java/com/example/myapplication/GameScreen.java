@@ -22,25 +22,34 @@ public class GameScreen extends AppCompatActivity {
     private int bottomHeightBounds;
     private int upperHeightBounds;
 
+    private boolean positionInitialized= false;
+
+    Player gameCharacter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
+        gameCharacter = (Player) getIntent().getSerializableExtra("playerObject");
         gameScreenName = (TextView) findViewById(R.id.nameGameScreen);
         character = (ImageView) findViewById(R.id.sprite);
         difficultyAndNumLives = (TextView) findViewById(R.id.difficultyAndNumLives);
 
         String userName = getIntent().getStringExtra(ConfigPage.NAME_ID);
-        String difficultyLevel = getIntent().getStringExtra("difficulty");
-        int numLives = getIntent().getIntExtra("numLives", 0);
+        //String difficultyLevel = getIntent().getStringExtra("difficulty");
+        //int numLives = getIntent().getIntExtra("numLives", 0);
+
+
+        String difficultyLevel = gameCharacter.getDifficulty();
+        int numLives = gameCharacter.getNumLives();
 
         gameScreenName.setText(String.format("Name: %s", userName));
         difficultyAndNumLives.setText(
                 String.format("Difficulty: %s | Num Lives: %d", difficultyLevel, numLives)
         );
 
-        character.setImageResource(getIntent().getIntExtra("image", 0));
+        character.setImageResource(gameCharacter.getImageResourceId());
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -50,13 +59,28 @@ public class GameScreen extends AppCompatActivity {
         int startTileYPos = (int)startTile.getY();
         int startTileHeight = startTile.getHeight();
         bottomHeightBounds = (startTileYPos + startTileHeight/2 - 50);
-
+        gameCharacter.setPosition((int)character.getX(), (int)character.getY());
 
     }
 
     @Override
     public boolean onKeyUp(int keycode, KeyEvent keyEvent) {
+        if(!positionInitialized) {
+            positionInitialized = true;
+            gameCharacter.setPosition((int)character.getX(), (int)character.getY());
 
+            View startTile = findViewById(R.id.startTile);
+            View goalTile = findViewById(R.id.goalTile);
+
+            int startTileYPos = (int)startTile.getY();
+            int startTileHeight = startTile.getHeight();
+            int goalTileYPos = (int)goalTile.getY();
+
+            gameCharacter.setBoundsDown(startTileYPos,startTileHeight, character.getWidth());
+            gameCharacter.setBoundsLeft(10);
+            gameCharacter.setBoundsRight(width, character.getWidth());
+            gameCharacter.setBoundsTop(goalTileYPos);
+        }
         if (keycode == KeyEvent.KEYCODE_W) {
 
             moveUp();
@@ -74,54 +98,39 @@ public class GameScreen extends AppCompatActivity {
         return false;
     }
 
-    public void moveUp() {
-        character.setY(character.getY() - 10);
-        updateBounds();
-        if (character.getY() < upperHeightBounds) {
-            character.setY(upperHeightBounds);
-        }
-    }
+
     public void updateBounds() {
-        View startTile = findViewById(R.id.startTile);
-        int startTileYPos = (int)startTile.getY();
-        int startTileHeight = startTile.getHeight();
-        bottomHeightBounds = (startTileYPos + startTileHeight/2 - 50);
+
 
         View goalTile = findViewById(R.id.goalTile);
 
         int goalTileYPos = (int)goalTile.getY();
-        int goalTileHeight = goalTile.getHeight();
         upperHeightBounds = (goalTileYPos);
 
 
     }
+
+    public void moveUp() {
+        gameCharacter.moveUp();
+        character.setY(gameCharacter.getPosY());
+    }
     public void moveDown() {
-        character.setY(character.getY() + 10);
-
-        updateBounds();
-
-        if(character.getY() > bottomHeightBounds) {
-            character.setY(bottomHeightBounds);
-        }
+        gameCharacter.moveDown();
+        character.setY(gameCharacter.getPosY());
     }
 
     public void moveRight() {
-        if (character.getX() <= width - (character.getWidth())) {
-            character.setX(character.getX() + 10);
-        }
+        gameCharacter.moveRight();
+        character.setX(gameCharacter.getPosX());
     }
 
     public void moveLeft() {
-        if (character.getX() >= 10) {
-            character.setX(character.getX() - 10);
-        }
+        gameCharacter.moveLeft();
+        character.setX(gameCharacter.getPosX());
     }
 
-
-
-
-
-
-
+    public int getRandomNumber() {
+        return 10;
+    }
 
 }

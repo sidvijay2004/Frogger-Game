@@ -127,20 +127,24 @@ public class ConfigPage extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (!name.getText().toString().trim().equals("")) {
+
                     String diffString = difficultySelector.getText().toString();
 
                     Intent intent = new Intent(ConfigPage.this, GameScreen.class);
                     intent.putExtra(NAME_ID, name.getText().toString());
 
+                    Player mainPlayer = new Player();
+
                     switch (charSelectionId) {
                     case 0:
-                        intent.putExtra("image", R.drawable.character_one);
+                        mainPlayer.setImageResourceId( R.drawable.character_one);
                         break;
                     case 1:
-                        intent.putExtra("image", R.drawable.character_two);
+                        mainPlayer.setImageResourceId( R.drawable.character_two);
+
                         break;
                     default:
-                        intent.putExtra("image", R.drawable.character_three);
+                        mainPlayer.setImageResourceId( R.drawable.character_three);
                         break;
                     }
 
@@ -148,15 +152,21 @@ public class ConfigPage extends AppCompatActivity {
                     case "MEDIUM":
                         intent.putExtra("difficulty", "Medium");
                         intent.putExtra("numLives", 7);
+                        mainPlayer.setDifficulty("Medium", 7);
                         break;
                     case "HARD":
                         intent.putExtra("difficulty", "Hard");
                         intent.putExtra("numLives", 5);
+                        mainPlayer.setDifficulty("Hard", 5);
                         break;
                     default:
                         intent.putExtra("difficulty", "Easy");
                         intent.putExtra("numLives", 10);
+                        mainPlayer.setDifficulty("Easy", 10);
                     }
+
+
+                    intent.putExtra("playerObject", mainPlayer);
                     startActivity(intent);
 
                 }
