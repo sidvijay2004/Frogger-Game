@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -22,9 +21,9 @@ public class GameScreen extends AppCompatActivity {
     private int bottomHeightBounds;
     private int upperHeightBounds;
 
-    private boolean positionInitialized= false;
+    private boolean positionInitialized = false;
 
-    Player gameCharacter;
+    private Player gameCharacter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,27 +55,27 @@ public class GameScreen extends AppCompatActivity {
         width = displayMetrics.widthPixels;
         View startTile = findViewById(R.id.startTile);
 
-        int startTileYPos = (int)startTile.getY();
+        int startTileYPos = (int) startTile.getY();
         int startTileHeight = startTile.getHeight();
-        bottomHeightBounds = (startTileYPos + startTileHeight/2 - 50);
-        gameCharacter.setPosition((int)character.getX(), (int)character.getY());
+        bottomHeightBounds = (startTileYPos + startTileHeight / 2 - 50);
+        gameCharacter.setPosition((int) character.getX(), (int) character.getY());
 
     }
 
     @Override
     public boolean onKeyUp(int keycode, KeyEvent keyEvent) {
-        if(!positionInitialized) {
+        if (!positionInitialized) {
             positionInitialized = true;
-            gameCharacter.setPosition((int)character.getX(), (int)character.getY());
+            gameCharacter.setPosition((int) character.getX(), (int) character.getY());
 
             View startTile = findViewById(R.id.startTile);
             View goalTile = findViewById(R.id.goalTile);
 
-            int startTileYPos = (int)startTile.getY();
+            int startTileYPos = (int) startTile.getY();
             int startTileHeight = startTile.getHeight();
-            int goalTileYPos = (int)goalTile.getY();
+            int goalTileYPos = (int) goalTile.getY();
 
-            gameCharacter.setBoundsDown(startTileYPos,startTileHeight, character.getWidth());
+            gameCharacter.setBoundsDown(startTileYPos, startTileHeight, character.getWidth());
             gameCharacter.setBoundsLeft(10);
             gameCharacter.setBoundsRight(width, character.getWidth());
             gameCharacter.setBoundsTop(goalTileYPos);
@@ -104,7 +103,7 @@ public class GameScreen extends AppCompatActivity {
 
         View goalTile = findViewById(R.id.goalTile);
 
-        int goalTileYPos = (int)goalTile.getY();
+        int goalTileYPos = (int) goalTile.getY();
         upperHeightBounds = (goalTileYPos);
 
 

@@ -137,14 +137,14 @@ public class ConfigPage extends AppCompatActivity {
 
                     switch (charSelectionId) {
                     case 0:
-                        mainPlayer.setImageResourceId( R.drawable.character_one);
+                        mainPlayer.setImageResourceId(R.drawable.character_one);
                         break;
                     case 1:
-                        mainPlayer.setImageResourceId( R.drawable.character_two);
+                        mainPlayer.setImageResourceId(R.drawable.character_two);
 
                         break;
                     default:
-                        mainPlayer.setImageResourceId( R.drawable.character_three);
+                        mainPlayer.setImageResourceId(R.drawable.character_three);
                         break;
                     }
 

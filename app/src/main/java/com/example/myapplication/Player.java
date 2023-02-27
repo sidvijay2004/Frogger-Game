@@ -1,7 +1,7 @@
 package com.example.myapplication;
 import java.io.Serializable;
 
-public class Player implements Serializable{
+public class Player implements Serializable {
     private int posX;
     private int posY;
 
@@ -43,8 +43,7 @@ public class Player implements Serializable{
         this.boundsRight = screenWidth - characterWidth;
     }
     public void setBoundsDown(int startTileYPos, int startTileHeight, int characterWidth) {
-        this.boundsDown = (startTileYPos + startTileHeight/2 - characterWidth/2);
-        ;
+        this.boundsDown = (startTileYPos + startTileHeight / 2 - characterWidth / 2);
     }
     public void setBoundsTop(int goalTilePosition) {
         this.boundsUp = goalTilePosition;
@@ -73,7 +72,7 @@ public class Player implements Serializable{
 
     public void moveDown() {
         posY += 10;
-        if(posY > boundsDown) {
+        if (posY > boundsDown) {
             posY = boundsDown;
         }
     }
