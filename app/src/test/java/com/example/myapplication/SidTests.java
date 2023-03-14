@@ -11,9 +11,10 @@ public class SidTests {
     public void testDown() {
         Player player = new Player();
         player.setPosY(50);
-        player.setBoundsDown(40,10,10);
+        player.setBoundsTop(0);
+        player.setBoundsDown(1000,100,10);
         player.moveDown();
-        assertEquals(40, player.getPosY());
+        assertEquals(60, player.getPosY());
     }
 
     @Test

@@ -106,13 +106,12 @@ public class GameScreen extends AppCompatActivity {
                     tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]],null);
                     break;
             }
-
             ConstraintLayout layout = findViewById(R.id.game_screen_layout);
             layout.addView(tile);
             if(gameMap[i] == 0) {
                 this.upperHeightBounds = getPositionFromIndex(i);
             } else if(gameMap[i] == 4) {
-                this.bottomHeightBounds = getPositionFromIndex(i) + widths[4] - 200;
+                this.bottomHeightBounds = getPositionFromIndex(i) + widths[4];
             }
             tile.setZ(0);
         }
@@ -205,16 +204,18 @@ public class GameScreen extends AppCompatActivity {
 
     @Override
     public boolean onKeyUp(int keycode, KeyEvent keyEvent) {
+        //character top,
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenBottomPoint = displayMetrics.heightPixels;
+        System.out.println((gameCharacter.getPosY() + character.getHeight()) + " " + (screenBottomPoint));
         if (!positionInitialized) {
             positionInitialized = true;
             gameCharacter.setPosition((int) character.getX(), (int) character.getY());
-
-
-            gameCharacter.setBoundsDown(this.bottomHeightBounds, character.getHeight(), 0);
             gameCharacter.setBoundsLeft(10);
             gameCharacter.setBoundsRight(width, character.getWidth());
             gameCharacter.setBoundsTop(this.upperHeightBounds);
-
+            gameCharacter.setBoundsDown(screenBottomPoint - widths[4], widths[4], character.getHeight());
         }
         if (keycode == KeyEvent.KEYCODE_W) {
 

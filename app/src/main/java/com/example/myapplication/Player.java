@@ -44,7 +44,9 @@ public class Player implements Serializable {
     }
 
     public void setBoundsDown(int startTileYPos, int startTileHeight, int characterWidth) {
-        this.boundsDown = (startTileYPos + startTileHeight / 2 - characterWidth / 2);
+        System.out.println("setting bounds: " + startTileYPos + " " + startTileHeight + " " + characterWidth);
+        //account for soft bar height
+        this.boundsDown = (startTileYPos + startTileHeight - characterWidth - 200);
     }
     public void setBoundsTop(int goalTilePosition) {
         this.boundsUp = goalTilePosition;
@@ -74,6 +76,7 @@ public class Player implements Serializable {
     public void moveDown() {
         posY += 10;
         if (posY > boundsDown) {
+            System.out.println("LOWER BOUNDS " + boundsDown);
             posY = boundsDown;
         }
     }
