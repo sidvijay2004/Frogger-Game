@@ -9,18 +9,17 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public class RiverTile extends View {
-    private Paint roadPaint;
-
-    public RiverTile(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        roadPaint = new Paint();
-        roadPaint.setColor(Color.BLUE);
+public class RiverTile extends Tile {
+    public RiverTile(Context context,int positionX, int positionY, @Nullable AttributeSet attrs) {
+        super(context, Color.BLUE, positionX, positionY, 500, attrs);
     }
 
+    public RiverTile(Context context,int positionX, int positionY, int laneWidth, @Nullable AttributeSet attrs) {
+        super(context, Color.BLUE, positionX, positionY, laneWidth, attrs);
+
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRect(0, 0, 1000000, 400, roadPaint);
     }
 }

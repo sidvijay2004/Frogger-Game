@@ -9,18 +9,12 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
-public class NewSafeTile extends View {
-    private Paint roadPaint;
-
-    public NewSafeTile(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        roadPaint = new Paint();
-        roadPaint.setColor(Color.GRAY);
+public class NewSafeTile extends Tile {
+    public NewSafeTile(Context context,int positionX, int positionY, @Nullable AttributeSet attrs) {
+        super(context, Color.GRAY, positionX, positionY, 500, attrs);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawRect(0, 0, 1000000, 400, roadPaint);
+    public NewSafeTile(Context context,int positionX, int positionY, int laneWidth, @Nullable AttributeSet attrs) {
+        super(context, Color.GRAY, positionX, positionY, laneWidth, attrs);
     }
 }
