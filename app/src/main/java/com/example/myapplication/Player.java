@@ -1,4 +1,6 @@
 package com.example.myapplication;
+import android.widget.TextView;
+
 import java.io.Serializable;
 
 public class Player implements Serializable {
@@ -14,7 +16,8 @@ public class Player implements Serializable {
 
     private String difficulty;
     private int numLives;
-
+    private int score = 0;
+    private int minYPos= 20000;
 
     public void setDifficulty(String difficulty, int numLives) {
         this.difficulty = difficulty;
@@ -71,6 +74,16 @@ public class Player implements Serializable {
         if (posY < boundsUp) {
             posY = boundsUp;
         }
+        if (posY < minYPos) {
+            minYPos = posY;
+            if (minYPos < 1250) {
+                score += 20;
+            } else if (minYPos < 1500) {
+                score += 10;
+            } else {
+                score += 40;
+            }
+        }
     }
 
     public void moveDown() {
@@ -104,4 +117,5 @@ public class Player implements Serializable {
         return boundsUp;
     }
 
+    public int getScore() { return score; }
 }
