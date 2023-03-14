@@ -240,7 +240,13 @@ public class GameScreen extends AppCompatActivity {
         if (character.getY() < minYPos) {
             minYPos = (int) character.getY();
             TextView scoreView = findViewById(R.id.scoreText);
-            score += 10;
+            if (minYPos < 1250) {
+                score += 20;
+            } else if (minYPos < 1500) {
+                score += 10;
+            } else {
+                score += 40;
+            }
             scoreView.setText("Score: " + score);
         }
     }
