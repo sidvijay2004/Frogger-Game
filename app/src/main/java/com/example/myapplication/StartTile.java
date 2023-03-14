@@ -18,7 +18,6 @@ public class StartTile extends Tile {
 
     public StartTile(Context context,int positionX, int positionY, int laneWidth, @Nullable AttributeSet attrs) {
         super(context, Color.RED, positionX, positionY, laneWidth, attrs);
-
     }
 }
 

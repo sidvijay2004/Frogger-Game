@@ -23,6 +23,5 @@ public class RoadTile extends Tile {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        // TODO - Add logic for cars.
     }
 }

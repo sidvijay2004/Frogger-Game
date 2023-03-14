@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+
 import android.animation.ValueAnimator;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -36,22 +37,18 @@ public class GameScreen extends AppCompatActivity {
     private int[] widths = {200, 225, 200, 250, 200};
     private int mapUpperPosition = 500;
 
+
     private Player gameCharacter;
 
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
-
-    private View startTile;
-    private View goalTile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-//        RoadTile roadTile = new RoadTile(this, 0, 100, 100, null);
-//        ConstraintLayout layout = findViewById(R.id.game_screen_layout);
-//        layout.addView(roadTile);
+
 
         drawTiles();
 
@@ -146,6 +143,7 @@ public class GameScreen extends AppCompatActivity {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 vehicle1.setY(getPositionFromIndex(7));
+
                 float x = (float) animation.getAnimatedValue();
                 vehicle1.setX(x);
                 if (x < -vehicle1.getWidth()) {
@@ -156,6 +154,7 @@ public class GameScreen extends AppCompatActivity {
 
         // Vehicle 3 moves from right to left
         ValueAnimator animator3 = ValueAnimator.ofFloat(screenWidth, -375);
+
         animator3.setDuration(6500);
         animator3.setRepeatMode(ValueAnimator.RESTART);
         animator3.setRepeatCount(ValueAnimator.INFINITE);
@@ -165,6 +164,7 @@ public class GameScreen extends AppCompatActivity {
                 float x = (float) animation.getAnimatedValue();
                 vehicle3.setX(x);
                 vehicle3.setY(getPositionFromIndex(5));
+
                 if (x < -vehicle3.getRight()) {
                     vehicle3.setX(screenWidth);
                 }
@@ -173,6 +173,7 @@ public class GameScreen extends AppCompatActivity {
 
         // Vehicle 2 moves from left to right
         ValueAnimator animator2 = ValueAnimator.ofFloat(-375, screenWidth);
+
         animator2.setDuration(8000);
         animator2.setRepeatMode(ValueAnimator.RESTART);
         animator2.setRepeatCount(ValueAnimator.INFINITE);
@@ -182,6 +183,7 @@ public class GameScreen extends AppCompatActivity {
                 float x = (float) animation.getAnimatedValue();
                 vehicle2.setX(x);
                 vehicle2.setY(getPositionFromIndex(6));
+
                 if (x >= screenWidth) {
                     vehicle2.setX(-vehicle2.getWidth());
                 }
@@ -195,6 +197,7 @@ public class GameScreen extends AppCompatActivity {
         vehicle1.bringToFront();
         vehicle2.bringToFront();
         vehicle3.bringToFront();
+
     }
 
     @Override
@@ -208,6 +211,7 @@ public class GameScreen extends AppCompatActivity {
             gameCharacter.setBoundsLeft(10);
             gameCharacter.setBoundsRight(width, character.getWidth());
             gameCharacter.setBoundsTop(this.upperHeightBounds);
+
         }
         if (keycode == KeyEvent.KEYCODE_W) {
 
@@ -224,14 +228,6 @@ public class GameScreen extends AppCompatActivity {
             return true;
         }
         return false;
-    }
-
-
-    public void updateBounds() {
-        int goalTileYPos = (int) goalTile.getY();
-        upperHeightBounds = (goalTileYPos);
-
-
     }
 
     public void moveUp() {

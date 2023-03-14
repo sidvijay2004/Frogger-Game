@@ -42,8 +42,9 @@ public class Player implements Serializable {
     public void setBoundsRight(int screenWidth, int characterWidth) {
         this.boundsRight = screenWidth - characterWidth;
     }
-    public void setBoundsDown(int lowerBounds, int caracterHeight, int characterWidth) {
-        this.boundsDown = (lowerBounds - caracterHeight + 10);
+
+    public void setBoundsDown(int startTileYPos, int startTileHeight, int characterWidth) {
+        this.boundsDown = (startTileYPos + startTileHeight / 2 - characterWidth / 2);
     }
     public void setBoundsTop(int goalTilePosition) {
         this.boundsUp = goalTilePosition;
