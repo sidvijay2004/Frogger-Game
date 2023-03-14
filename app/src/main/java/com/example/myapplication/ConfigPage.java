@@ -30,7 +30,7 @@ public class ConfigPage extends AppCompatActivity {
     private int diffId;
     public static final String NAME_ID = "name1";
 
-    public static final String NAME_ID = "RESR";
+    //public static final String NAME_ID = "RESR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
