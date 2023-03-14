@@ -40,6 +40,9 @@ public class GameScreen extends AppCompatActivity {
 
     private Player gameCharacter;
 
+    private int score = 0;
+    private int minYPos= 20000;
+
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
 
@@ -234,6 +237,19 @@ public class GameScreen extends AppCompatActivity {
     public void moveUp() {
         gameCharacter.moveUp();
         character.setY(gameCharacter.getPosY());
+        System.out.println(minYPos + " " + character.getY());
+        if (character.getY() < minYPos) {
+            minYPos = (int) character.getY();
+            TextView scoreView = findViewById(R.id.scoreText);
+            if (minYPos < 1250) {
+                score += 20;
+            } else if (minYPos < 1500) {
+                score += 10;
+            } else {
+                score += 40;
+            }
+            scoreView.setText("Score: " + score);
+        }
     }
     public void moveDown() {
         gameCharacter.moveDown();
