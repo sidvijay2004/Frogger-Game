@@ -41,6 +41,8 @@ public class ConfigPage extends AppCompatActivity {
         setContentView(R.layout.activity_config_page);
         setUpConfigPage(savedInstanceState);
 
+        Player mainPlayer = new Player();
+
     }
 
     public void updateCharDisplay() {
