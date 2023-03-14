@@ -22,6 +22,8 @@ public class ConfigPage extends AppCompatActivity {
     private ImageButton charSelectLeft;
     private ImageButton charSelectRight;
     private ImageView charImageDisplay;
+
+//    private Player mainPlayer;
     private int charSelectionId;
 
     private TextView difficultySelector;
@@ -30,11 +32,8 @@ public class ConfigPage extends AppCompatActivity {
     private int diffId;
     public static final String NAME_ID = "name1";
 
-<<<<<<< HEAD
+
 //    public static final String NAME_ID = "RESR";
-=======
-    //public static final String NAME_ID = "RESR";
->>>>>>> origin
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,6 @@ public class ConfigPage extends AppCompatActivity {
         setContentView(R.layout.activity_config_page);
         setUpConfigPage(savedInstanceState);
 
-        Player mainPlayer = new Player();
     }
 
     public void updateCharDisplay() {
@@ -93,6 +91,7 @@ public class ConfigPage extends AppCompatActivity {
         diffSelectRight = (ImageButton) findViewById(R.id.diffRight);
         diffId = 0;
         charSelectionId = 0;
+
         diffSelectLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +136,7 @@ public class ConfigPage extends AppCompatActivity {
                     String diffString = difficultySelector.getText().toString();
 
                     Intent intent = new Intent(ConfigPage.this, GameScreen.class);
-                    intent.putExtra(NAME_ID, name.getText().toString());
+                    intent.putExtra(NAME_ID , name.getText().toString());
 
                     Player mainPlayer = new Player();
 
@@ -170,6 +169,7 @@ public class ConfigPage extends AppCompatActivity {
                         intent.putExtra("numLives", 10);
                         mainPlayer.setDifficulty("Easy", 10);
                     }
+
 
 
                     intent.putExtra("playerObject", mainPlayer);
