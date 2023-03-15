@@ -1,23 +1,21 @@
 package com.example.myapplication;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 
 public class Sprint3Tests {
     @Test
-    public void testScoreObstacles() {
+    public void testScoreObstacle1() {
         Player player = new Player();
-        player.setPosition(1000, 1900);
-        player.moveUp();
-        assertEquals(40, player.getScore());
-        player.setPosition(1000, 1400);
-        player.moveUp();
-        assertEquals(50, player.getScore());
-        player.setPosition(1000, 1100);
-        player.moveUp();
-        assertEquals(70, player.getScore());
+        Vehicle v1 = new Vehicle(  R.id.vehicle1, 0, "Medium");
+        Vehicle v2 = new Vehicle(  R.id.vehicle2, 0, "Big");
+        Vehicle v3 = new Vehicle(  R.id.vehicle3, 0, "Small");
+        player.setPosY(v1.getPosY() + 10);
+        player.moveUp(v1, v2, v3);
+        assertEquals(20, player.getScore());
     }
 
     @Test
@@ -31,4 +29,37 @@ public class Sprint3Tests {
         player.moveLeft();
         assertEquals(0, player.getScore());
     }
+
+    @Test
+    public void testScoreObstacle2() {
+        Player player = new Player();
+        Vehicle v1 = new Vehicle(  R.id.vehicle1, 100, "Medium");
+        Vehicle v2 = new Vehicle(  R.id.vehicle2, 200, "Big");
+        Vehicle v3 = new Vehicle(  R.id.vehicle3, 300, "Small");
+
+
+        player.setPosY(v2.getPosY() + 10);
+        player.moveUp(v1, v2, v3);
+        assertEquals(40, player.getScore());
+    }
+
+    @Test
+    public void testScoreObstacle3() {
+        Player player = new Player();
+        Vehicle v1 = new Vehicle(  R.id.vehicle1, 100, "Medium");
+        Vehicle v2 = new Vehicle(  R.id.vehicle2, 200, "Big");
+        Vehicle v3 = new Vehicle(  R.id.vehicle3, 300, "Small");
+        player.setPosY(v3.getPosY() + 10);
+        player.moveUp(v1, v2, v3);
+        assertEquals(100, player.getScore());
+    }
+
+
+
+
+
+
+
+
+
 }

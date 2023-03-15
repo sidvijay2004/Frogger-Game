@@ -14,27 +14,32 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Random;
+
 
 public class GameScreen extends AppCompatActivity {
 
     private TextView gameScreenName;
     private ImageView character;
 
-    private ImageView vehicle1;
-    private ImageView vehicle2;
-    private ImageView vehicle3;
+    private static ImageView vehicle1;
+    private static ImageView vehicle2;
+    private static ImageView vehicle3;
 
     private TextView difficultyAndNumLives;
 
     private int width;
     private int bottomHeightBounds;
+    Vehicle vehicleOne;
+    Vehicle vehicleTwo;
+    Vehicle vehicleThree;
     private int upperHeightBounds;
 
     private boolean positionInitialized = false;
 
     //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
     private int[] gameMap = {0,1,1,1,2,3,3,3,4};
-    private int[] widths = {200, 225, 200, 250, 200};
+    private int[] widths = {200, 200, 150, 150, 20};
     private int mapUpperPosition = 500;
 
 
@@ -43,7 +48,7 @@ public class GameScreen extends AppCompatActivity {
     private int score = 0;
     private int minYPos= 20000;
 
-    int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    public static final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
 
     @Override
@@ -63,6 +68,9 @@ public class GameScreen extends AppCompatActivity {
         vehicle1 = (ImageView) findViewById(R.id.vehicle1);
         vehicle2 = (ImageView) findViewById(R.id.vehicle2);
         vehicle3 = (ImageView) findViewById(R.id.vehicle3);
+        vehicleOne = new Vehicle(0, vehicle1.getId(), "Big");
+        vehicleTwo = new Vehicle(0, vehicle2.getId(), "Small");
+        vehicleThree = new Vehicle(0, vehicle3.getId(), "Medium");
 
         String userName = getIntent().getStringExtra(ConfigPage.NAME_ID);
 
@@ -108,17 +116,13 @@ public class GameScreen extends AppCompatActivity {
             }
             ConstraintLayout layout = findViewById(R.id.game_screen_layout);
             layout.addView(tile);
-            if(gameMap[i] == 0) {
-                this.upperHeightBounds = getPositionFromIndex(i);
-            } else if(gameMap[i] == 4) {
-                this.bottomHeightBounds = getPositionFromIndex(i) + widths[4];
-            }
-            tile.setZ(0);
+
+
         }
     }
 
     //Gets the Y position (block top) of the tile based on the index of the array.
-    private int getPositionFromIndex(int index) {
+    public int getPositionFromIndex(int index) {
         int currentYPosition = mapUpperPosition;
         for(int i = 0; i < index; i++) {
             currentYPosition += widths[gameMap[i]];
@@ -135,70 +139,25 @@ public class GameScreen extends AppCompatActivity {
 
 
     private void moveVehicles() {
-        // Vehicle 1 moves from right to left
-        ValueAnimator animator1 = ValueAnimator.ofFloat(screenWidth,-375);
-        animator1.setDuration(5000);
-        animator1.setRepeatMode(ValueAnimator.RESTART);
-        animator1.setRepeatCount(ValueAnimator.INFINITE);
-        System.out.println(vehicle1.getRight());
-        animator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                vehicle1.setY(getPositionFromIndex(7));
+        gameCharacter.setVehicle1(vehicleOne);
+        gameCharacter.setVehicle2(vehicleTwo);
+        gameCharacter.setVehicle3(vehicleThree);
+        ValueAnimator animator1 = ValueAnimator.ofFloat(screenWidth, -375);
+        moveVehicle(gameCharacter.getVehicle1(), animator1, 5000, getPositionFromIndex(7), vehicle1);
+        vehicle1.bringToFront();
 
-                float x = (float) animation.getAnimatedValue();
-                vehicle1.setX(x);
-                if (x < -vehicle1.getWidth()) {
-                    vehicle1.setX(screenWidth);
-                }
-            }
-        });
+        ValueAnimator animator3 = ValueAnimator.ofFloat(-375, screenWidth);
+        moveVehicle(gameCharacter.getVehicle3(), animator3, 6500, getPositionFromIndex(5), vehicle2);
+        vehicle3.bringToFront();
 
-        // Vehicle 3 moves from right to left
-        ValueAnimator animator3 = ValueAnimator.ofFloat(screenWidth, -375);
 
-        animator3.setDuration(6500);
-        animator3.setRepeatMode(ValueAnimator.RESTART);
-        animator3.setRepeatCount(ValueAnimator.INFINITE);
-        animator3.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float x = (float) animation.getAnimatedValue();
-                vehicle3.setX(x);
-                vehicle3.setY(getPositionFromIndex(5));
-
-                if (x < -vehicle3.getRight()) {
-                    vehicle3.setX(screenWidth);
-                }
-            }
-        });
-
-        // Vehicle 2 moves from left to right
-        ValueAnimator animator2 = ValueAnimator.ofFloat(-375, screenWidth);
-
-        animator2.setDuration(8000);
-        animator2.setRepeatMode(ValueAnimator.RESTART);
-        animator2.setRepeatCount(ValueAnimator.INFINITE);
-        animator2.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float x = (float) animation.getAnimatedValue();
-                vehicle2.setX(x);
-                vehicle2.setY(getPositionFromIndex(6));
-
-                if (x >= screenWidth) {
-                    vehicle2.setX(-vehicle2.getWidth());
-                }
-            }
-        });
+        ValueAnimator animator2 = ValueAnimator.ofFloat(screenWidth, -375);
+        moveVehicle(gameCharacter.getVehicle2(), animator2, 8000, getPositionFromIndex(6), vehicle3);
+        vehicle2.bringToFront();
 
         animator1.start();
         animator2.start();
         animator3.start();
-
-        vehicle1.bringToFront();
-        vehicle2.bringToFront();
-        vehicle3.bringToFront();
 
     }
 
@@ -208,7 +167,7 @@ public class GameScreen extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenBottomPoint = displayMetrics.heightPixels;
-        System.out.println((gameCharacter.getPosY() + character.getHeight()) + " " + (screenBottomPoint));
+
         if (!positionInitialized) {
             positionInitialized = true;
             gameCharacter.setPosition((int) character.getX(), (int) character.getY());
@@ -235,21 +194,12 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public void moveUp() {
-        gameCharacter.moveUp();
+        gameCharacter.moveUp(vehicleOne, vehicleTwo, vehicleThree);
         character.setY(gameCharacter.getPosY());
-        System.out.println(minYPos + " " + character.getY());
-        if (character.getY() < minYPos) {
-            minYPos = (int) character.getY();
-            TextView scoreView = findViewById(R.id.scoreText);
-            if (minYPos < 1250) {
-                score += 20;
-            } else if (minYPos < 1500) {
-                score += 10;
-            } else {
-                score += 40;
-            }
-            scoreView.setText("Score: " + score);
-        }
+        score = gameCharacter.getScore();
+        TextView scoreView = findViewById(R.id.scoreText);
+        scoreView.setText("Score: " + score);
+
     }
     public void moveDown() {
         gameCharacter.moveDown();
@@ -266,8 +216,30 @@ public class GameScreen extends AppCompatActivity {
         character.setX(gameCharacter.getPosX());
     }
 
-    public int getRandomNumber() {
-        return 10;
+    public void moveVehicle(Vehicle vehicleObj, ValueAnimator valueAnimator, int duration, int position, ImageView vehicle) {
+        valueAnimator.setDuration(duration);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                vehicle.setY(position);
+                vehicleObj.setPosY(position);
+                float x = (float) animation.getAnimatedValue();
+                vehicle.setX(x);
+                vehicleObj.setPosX(x);
+                if (x < -vehicle.getWidth()) {
+                    vehicle.setX(GameScreen.screenWidth);
+                }
+            }
+        });
+
+
     }
+
+
+
+
 
 }

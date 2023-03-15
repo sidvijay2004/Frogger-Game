@@ -1,4 +1,5 @@
 package com.example.myapplication;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.Serializable;
@@ -18,6 +19,10 @@ public class Player implements Serializable {
     private int numLives;
     private int score = 0;
     private int minYPos= 20000;
+
+    private Vehicle vehicle1;
+    private Vehicle vehicle2;
+    private Vehicle vehicle3;
 
     public void setDifficulty(String difficulty, int numLives) {
         this.difficulty = difficulty;
@@ -47,7 +52,6 @@ public class Player implements Serializable {
     }
 
     public void setBoundsDown(int startTileYPos, int startTileHeight, int characterWidth) {
-        System.out.println("setting bounds: " + startTileYPos + " " + startTileHeight + " " + characterWidth);
         //account for soft bar height
         this.boundsDown = (startTileYPos + startTileHeight - characterWidth - 200);
     }
@@ -69,29 +73,34 @@ public class Player implements Serializable {
         }
     }
 
-    public void moveUp() {
+    public void moveUp(Vehicle v1, Vehicle v2, Vehicle v3) {
         posY -= 10;
         if (posY < boundsUp) {
             posY = boundsUp;
         }
-        if (posY < minYPos) {
-            minYPos = posY;
-            if (minYPos < 1250) {
-                score += 20;
-            } else if (minYPos < 1500) {
-                score += 10;
-            } else {
-                score += 40;
-            }
+
+        double height1 = v1.getPosY();
+        double height2 = v2.getPosY();
+        double height3 = v3.getPosY();
+
+        if (assertEqualsDouble(posY, height1)) {
+            score += 20;
+        } else if (assertEqualsDouble(posY, height2)) {
+            score += 40;
+        } else if (assertEqualsDouble(posY, height3)) {
+            score += 100;
+        } else {
+            score += 5;
         }
+
     }
 
     public void moveDown() {
         posY += 10;
         if (posY > boundsDown) {
-            System.out.println("LOWER BOUNDS " + boundsDown);
             posY = boundsDown;
         }
+
     }
 
     public void setPosition(int posX, int posY) {
@@ -118,4 +127,36 @@ public class Player implements Serializable {
     }
 
     public int getScore() { return score; }
+
+    public void setVehicle1(Vehicle vehicle1) {
+        this.vehicle1 = vehicle1;
+    }
+
+    public void setVehicle2(Vehicle vehicle2) {
+        this.vehicle2 = vehicle2;
+    }
+
+    public void setVehicle3(Vehicle vehicle3) {
+        this.vehicle3 = vehicle3;
+    }
+    public Vehicle getVehicle1() {
+        return vehicle1;
+    }
+
+    public Vehicle getVehicle2() {
+        return vehicle2;
+    }
+
+    public Vehicle getVehicle3() {
+        return vehicle3;
+    }
+
+    public boolean assertEqualsDouble(double one, double two) {
+        if (one <= two + 5 && one >= two - 5) {
+            return true;
+        }
+        return false;
+
+    }
+
 }
