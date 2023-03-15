@@ -81,17 +81,17 @@ public class Player implements Serializable {
         double height2 = v2.getPosY();
         double height3 = v3.getPosY();
 
-        if (assertEqualsDouble(posY, height1) && posY <= minYPos) {
+        if (assertEqualsDouble(posY, height1) && posY < minYPos) {
             minYPos = posY;
             score += 20;
-        } else if (assertEqualsDouble(posY, height2) && posY <= minYPos) {
+        } else if (assertEqualsDouble(posY, height2) && posY < minYPos) {
             minYPos = posY;
             score += 40;
-        } else if (assertEqualsDouble(posY, height3) && posY <= minYPos) {
+        } else if (assertEqualsDouble(posY, height3) && posY < minYPos) {
             minYPos = posY;
             score += 100;
         } else {
-            if (posY <= minYPos) {
+            if (posY < minYPos) {
                 minYPos = posY;
                 score += 5;
             }
