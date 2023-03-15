@@ -12,6 +12,7 @@ public class Player implements Serializable {
 
     private int imageResource;
 
+
     private String difficulty;
     private int numLives;
     private int score = 0;
@@ -80,14 +81,20 @@ public class Player implements Serializable {
         double height2 = v2.getPosY();
         double height3 = v3.getPosY();
 
-        if (assertEqualsDouble(posY, height1)) {
+        if (assertEqualsDouble(posY, height1) && posY <= minYPos) {
+            minYPos = posY;
             score += 20;
-        } else if (assertEqualsDouble(posY, height2)) {
+        } else if (assertEqualsDouble(posY, height2) && posY <= minYPos) {
+            minYPos = posY;
             score += 40;
-        } else if (assertEqualsDouble(posY, height3)) {
+        } else if (assertEqualsDouble(posY, height3) && posY <= minYPos) {
+            minYPos = posY;
             score += 100;
         } else {
-            score += 5;
+            if (posY <= minYPos) {
+                minYPos = posY;
+                score += 5;
+            }
         }
 
     }
