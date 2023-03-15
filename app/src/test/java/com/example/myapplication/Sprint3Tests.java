@@ -91,10 +91,50 @@ public class Sprint3Tests {
         assertEquals(10, player.getScore());
     }
 
+    @Test
+    public void testPathScore() {
+        Player player = new Player();
+        Vehicle v1 = new Vehicle(  R.id.vehicle1, 100, "Medium");
+        Vehicle v2 = new Vehicle(  R.id.vehicle2, 200, "Big");
+        Vehicle v3 = new Vehicle(  R.id.vehicle3, 300, "Small");
+        player.setPosY(0);
+        player.moveUp(v1, v2, v3);
+        player.moveUp(v1, v2, v3);
 
+        player.moveRight();
+        player.moveRight();
+        player.moveRight();
+        player.moveRight();
+        player.moveRight();
+        player.moveRight();
 
+        player.moveUp(v1, v2, v3);
+        player.moveUp(v1, v2, v3);
 
+        assertEquals(20, player.getScore());
+    }
 
+    @Test
+    public void testPathWithVehicle() {
+        Player player = new Player();
+        Vehicle v1 = new Vehicle(  R.id.vehicle1, 100, "Medium");
+        Vehicle v2 = new Vehicle(  R.id.vehicle2, 200, "Big");
+        Vehicle v3 = new Vehicle(  R.id.vehicle3, 300, "Small");
+        player.setPosY(v1.getPosY() + 10);
+        player.moveUp(v1, v2, v3);
+        player.moveUp(v1, v2, v3);
 
+        player.moveRight();
+        player.moveRight();
+        player.moveRight();
+        player.moveLeft();
+        player.moveLeft();
+        player.moveRight();
+
+        player.moveUp(v1, v2, v3);
+        player.moveUp(v1, v2, v3);
+
+        assertEquals(35, player.getScore());
+    }
 
 }

@@ -1,9 +1,5 @@
 package com.example.myapplication;
 
-import android.animation.ValueAnimator;
-import android.util.DisplayMetrics;
-import android.widget.ImageView;
-
 public class Vehicle {
 
     private int posY;

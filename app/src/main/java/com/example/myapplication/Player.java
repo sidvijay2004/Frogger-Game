@@ -1,7 +1,4 @@
 package com.example.myapplication;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import java.io.Serializable;
 
 public class Player implements Serializable {
@@ -18,7 +15,7 @@ public class Player implements Serializable {
     private String difficulty;
     private int numLives;
     private int score = 0;
-    private int minYPos= 20000;
+    private int minYPos = 20000;
 
     private Vehicle vehicle1;
     private Vehicle vehicle2;
@@ -126,7 +123,9 @@ public class Player implements Serializable {
         return boundsUp;
     }
 
-    public int getScore() { return score; }
+    public int getScore() {
+        return score;
+    }
 
     public void setVehicle1(Vehicle vehicle1) {
         this.vehicle1 = vehicle1;

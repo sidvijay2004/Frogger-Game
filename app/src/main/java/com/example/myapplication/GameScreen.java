@@ -9,13 +9,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.Random;
-
 
 public class GameScreen extends AppCompatActivity {
 
@@ -30,15 +25,15 @@ public class GameScreen extends AppCompatActivity {
 
     private int width;
     private int bottomHeightBounds;
-    Vehicle vehicleOne;
-    Vehicle vehicleTwo;
-    Vehicle vehicleThree;
+    private Vehicle vehicleOne;
+    private Vehicle vehicleTwo;
+    private Vehicle vehicleThree;
     private int upperHeightBounds;
 
     private boolean positionInitialized = false;
 
     //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
-    private int[] gameMap = {0,1,1,1,2,3,3,3,4};
+    private int[] gameMap = {0, 1, 1, 1, 2, 3, 3, 3, 4};
     private int[] widths = {200, 200, 150, 150, 20};
     private int mapUpperPosition = 500;
 
@@ -46,9 +41,9 @@ public class GameScreen extends AppCompatActivity {
     private Player gameCharacter;
 
     private int score = 0;
-    private int minYPos= 20000;
+    private int minYPos = 20000;
 
-    public static final int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    public static final int SCREEN_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
 
 
     @Override
@@ -93,26 +88,28 @@ public class GameScreen extends AppCompatActivity {
 
     //Draws the tiles on the screen based on the game map array, and returns the startTile:
     private void drawTiles() {
-        for(int i = 0; i < gameMap.length; i++) {
+        for (int i = 0; i < gameMap.length; i++) {
             Tile tile = null;
 
             //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
-            switch(gameMap[i]) {
-                case 0:
-                    tile = new GoalTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]],null);
-                    break;
-                case 1:
-                    tile = new RiverTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]],null);
-                    break;
-                case 2:
-                    tile = new NewSafeTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]],null);
-                    break;
-                case 3:
-                    tile = new RoadTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]],null);
-                    break;
-                case 4:
-                    tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]],null);
-                    break;
+            switch (gameMap[i]) {
+            case 0:
+                tile = new GoalTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                break;
+            case 1:
+                tile = new RiverTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                break;
+            case 2:
+                tile = new NewSafeTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                break;
+            case 3:
+                tile = new RoadTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                break;
+            case 4:
+                tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                break;
+            default:
+                break;
             }
             ConstraintLayout layout = findViewById(R.id.game_screen_layout);
             layout.addView(tile);
@@ -124,10 +121,10 @@ public class GameScreen extends AppCompatActivity {
     //Gets the Y position (block top) of the tile based on the index of the array.
     public int getPositionFromIndex(int index) {
         int currentYPosition = mapUpperPosition;
-        for(int i = 0; i < index; i++) {
+        for (int i = 0; i < index; i++) {
             currentYPosition += widths[gameMap[i]];
         }
-        if(gameMap[index] == 4) {
+        if (gameMap[index] == 4) {
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             int screenBottomPoint = displayMetrics.heightPixels;
@@ -142,17 +139,20 @@ public class GameScreen extends AppCompatActivity {
         gameCharacter.setVehicle1(vehicleOne);
         gameCharacter.setVehicle2(vehicleTwo);
         gameCharacter.setVehicle3(vehicleThree);
-        ValueAnimator animator1 = ValueAnimator.ofFloat(screenWidth, -375);
-        moveVehicle(gameCharacter.getVehicle1(), animator1, 5000, getPositionFromIndex(7), vehicle1);
+        ValueAnimator animator1 = ValueAnimator.ofFloat(SCREEN_WIDTH, -375);
+        moveVehicle(gameCharacter.getVehicle1(),
+                animator1, 5000, getPositionFromIndex(7), vehicle1);
         vehicle1.bringToFront();
 
-        ValueAnimator animator3 = ValueAnimator.ofFloat(-375, screenWidth);
-        moveVehicle(gameCharacter.getVehicle3(), animator3, 6500, getPositionFromIndex(5), vehicle2);
+        ValueAnimator animator3 = ValueAnimator.ofFloat(-375, SCREEN_WIDTH);
+        moveVehicle(gameCharacter.getVehicle3(),
+                animator3, 6500, getPositionFromIndex(5), vehicle2);
         vehicle3.bringToFront();
 
 
-        ValueAnimator animator2 = ValueAnimator.ofFloat(screenWidth, -375);
-        moveVehicle(gameCharacter.getVehicle2(), animator2, 8000, getPositionFromIndex(6), vehicle3);
+        ValueAnimator animator2 = ValueAnimator.ofFloat(SCREEN_WIDTH, -375);
+        moveVehicle(gameCharacter.getVehicle2(),
+                animator2, 8000, getPositionFromIndex(6), vehicle3);
         vehicle2.bringToFront();
 
         animator1.start();
@@ -174,7 +174,8 @@ public class GameScreen extends AppCompatActivity {
             gameCharacter.setBoundsLeft(10);
             gameCharacter.setBoundsRight(width, character.getWidth());
             gameCharacter.setBoundsTop(this.upperHeightBounds);
-            gameCharacter.setBoundsDown(screenBottomPoint - widths[4], widths[4], character.getHeight());
+            gameCharacter.setBoundsDown(screenBottomPoint - widths[4],
+                    widths[4], character.getHeight());
         }
         if (keycode == KeyEvent.KEYCODE_W) {
 
@@ -216,7 +217,10 @@ public class GameScreen extends AppCompatActivity {
         character.setX(gameCharacter.getPosX());
     }
 
-    public void moveVehicle(Vehicle vehicleObj, ValueAnimator valueAnimator, int duration, int position, ImageView vehicle) {
+    public void moveVehicle(Vehicle vehicleObj,
+                            ValueAnimator valueAnimator,
+                            int duration,
+                            int position, ImageView vehicle) {
         valueAnimator.setDuration(duration);
         valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
@@ -230,7 +234,7 @@ public class GameScreen extends AppCompatActivity {
                 vehicle.setX(x);
                 vehicleObj.setPosX(x);
                 if (x < -vehicle.getWidth()) {
-                    vehicle.setX(GameScreen.screenWidth);
+                    vehicle.setX(GameScreen.SCREEN_WIDTH);
                 }
             }
         });

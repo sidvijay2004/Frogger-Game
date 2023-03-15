@@ -2,10 +2,8 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -16,7 +14,8 @@ public class Tile extends View {
     private int positionY;
     private Paint tilePaint;
 
-    public Tile(Context context, int color, int positionX, int positionY, @Nullable AttributeSet attrs) {
+    public Tile(Context context, int color, int positionX,
+                int positionY, @Nullable AttributeSet attrs) {
         super(context, attrs);
         tilePaint = new Paint();
         tilePaint.setColor(color);
@@ -25,7 +24,8 @@ public class Tile extends View {
         this.laneWidth = 500;
     }
 
-    public Tile(Context context, int color, int positionX, int positionY, int laneWidth, @Nullable AttributeSet attrs) {
+    public Tile(Context context, int color, int positionX,
+                int positionY, int laneWidth, @Nullable AttributeSet attrs) {
         super(context, attrs);
         tilePaint = new Paint();
         tilePaint.setColor(color);
@@ -37,6 +37,6 @@ public class Tile extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRect(positionX, positionY, getWidth(), positionY+laneWidth, tilePaint);
+        canvas.drawRect(positionX, positionY, getWidth(), positionY + laneWidth, tilePaint);
     }
 }
