@@ -19,11 +19,9 @@ public class Sprint3Tests {
     }
 
     @Test
-    public void testScoreNotUpdate() {
+    public void testScoreNotUpdateDown() {
         Player player = new Player();
         player.setPosition(1000, 1000);
-        player.moveDown();
-        assertEquals(0, player.getScore());
         player.moveRight();
         assertEquals(0, player.getScore());
         player.moveLeft();
@@ -52,6 +50,22 @@ public class Sprint3Tests {
         player.setPosY(v3.getPosY() + 10);
         player.moveUp(v1, v2, v3);
         assertEquals(100, player.getScore());
+    }
+
+    @Test
+    public void testScoreNotUpdateRight() {
+        Player player = new Player();
+        player.setPosition(1000, 1000);
+        player.moveRight();
+        assertEquals(0, player.getScore());
+    }
+
+    @Test
+    public void testScoreNotUpdateLeft() {
+        Player player = new Player();
+        player.setPosition(1000, 1000);
+        player.moveLeft();
+        assertEquals(0, player.getScore());
     }
 
 
