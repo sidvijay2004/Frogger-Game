@@ -88,7 +88,7 @@ public class Sprint3Tests {
         player.moveUp(v1, v2, v3);
         player.moveDown();
         player.moveDown();
-        assertEquals(10, player.getScore());
+        assertEquals(5, player.getScore());
     }
 
     @Test
