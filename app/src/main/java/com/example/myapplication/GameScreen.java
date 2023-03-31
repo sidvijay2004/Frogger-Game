@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.ValueAnimator;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -37,11 +38,14 @@ public class GameScreen extends AppCompatActivity {
     private int[] widths = {200, 200, 150, 150, 20};
     private int mapUpperPosition = 500;
 
+    private ImageView[] vehicleList = new ImageView[3];
+
 
     private Player gameCharacter;
 
     private int score = 0;
     private int minYPos = 20000;
+
 
     public static final int SCREEN_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
 
@@ -67,6 +71,11 @@ public class GameScreen extends AppCompatActivity {
         vehicleTwo = new Vehicle(0, vehicle2.getId(), "Small");
         vehicleThree = new Vehicle(0, vehicle3.getId(), "Medium");
 
+        vehicleList[0] = vehicle1;
+        vehicleList[1] = vehicle2;
+        vehicleList[2] = vehicle3;
+
+
         String userName = getIntent().getStringExtra(ConfigPage.NAME_ID);
 
 
@@ -85,6 +94,45 @@ public class GameScreen extends AppCompatActivity {
         character.setZ(1);
         moveVehicles();
     }
+
+
+
+    public boolean checkVehicleCollision(ImageView character, ImageView[] vehicles) {
+        if (character != null) {
+            Rect characterRect = new Rect();
+            character.getHitRect(characterRect);
+
+
+
+            for (ImageView vehicle : vehicles) {
+                if (vehicle != null) { // add null check
+
+                    Rect vehicleRect = new Rect();
+                    vehicle.getHitRect(vehicleRect);
+
+
+//                    System.out.println("characterRect: " + characterRect.toShortString());
+//                    System.out.println("vehicleRect: " + vehicleRect.toShortString());
+
+                    if (characterRect.intersect(vehicleRect)) {
+                        return true; // Collision detected
+                    }
+
+
+
+                }
+            }
+
+        }
+
+
+
+        return false; // No collision detected
+    }
+
+
+
+
 
     //Draws the tiles on the screen based on the game map array, and returns the startTile:
     private void drawTiles() {
@@ -180,15 +228,27 @@ public class GameScreen extends AppCompatActivity {
         if (keycode == KeyEvent.KEYCODE_W) {
 
             moveUp();
+            if (checkVehicleCollision(character, vehicleList)) {
+                System.out.println("Collided with vehicle");
+            }
             return true;
         } else if (keycode == KeyEvent.KEYCODE_S) {
             moveDown();
+            if (checkVehicleCollision(character, vehicleList)) {
+                System.out.println("Collided with vehicle");
+            }
             return true;
         } else if (keycode == KeyEvent.KEYCODE_D) {
             moveRight();
+            if (checkVehicleCollision(character, vehicleList)) {
+                System.out.println("Collided with vehicle");
+            }
             return true;
         } else if (keycode == KeyEvent.KEYCODE_A) {
             moveLeft();
+            if (checkVehicleCollision(character, vehicleList)) {
+                System.out.println("Collided with vehicle");
+            }
             return true;
         }
         return false;
@@ -228,6 +288,31 @@ public class GameScreen extends AppCompatActivity {
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
+                // Get the current position of the player ImageView
+                int[] playerPos = new int[2];
+                character.getLocationOnScreen(playerPos);
+                int playerX = playerPos[0];
+                int playerY = playerPos[1];
+
+                // Check for collisions with all vehicle obstacles
+                for (int i = 0; i < vehicleList.length; i++) {
+                    ImageView vehicleObstacle = vehicleList[i];
+                    int[] vehiclePos = new int[2];
+                    vehicleObstacle.getLocationOnScreen(vehiclePos);
+                    int vehicleX = vehiclePos[0];
+                    int vehicleY = vehiclePos[1];
+
+                    // Check if the player is colliding with the vehicle obstacle
+                    if (playerX < vehicleX + vehicleObstacle.getWidth() &&
+                            playerX + character.getWidth() > vehicleX &&
+                            playerY < vehicleY + vehicleObstacle.getHeight() &&
+                            playerY + character.getHeight() > vehicleY) {
+
+                        System.out.println("Collided with vehicle using new method");
+
+                    }
+                }
+
                 vehicle.setY(position);
                 vehicleObj.setPosY(position);
                 float x = (float) animation.getAnimatedValue();
