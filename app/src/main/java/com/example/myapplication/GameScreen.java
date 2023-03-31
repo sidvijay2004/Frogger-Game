@@ -288,30 +288,6 @@ public class GameScreen extends AppCompatActivity {
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                // Get the current position of the player ImageView
-                int[] playerPos = new int[2];
-                character.getLocationOnScreen(playerPos);
-                int playerX = playerPos[0];
-                int playerY = playerPos[1];
-
-                // Check for collisions with all vehicle obstacles
-                for (int i = 0; i < vehicleList.length; i++) {
-                    ImageView vehicleObstacle = vehicleList[i];
-                    int[] vehiclePos = new int[2];
-                    vehicleObstacle.getLocationOnScreen(vehiclePos);
-                    int vehicleX = vehiclePos[0];
-                    int vehicleY = vehiclePos[1];
-
-                    // Check if the player is colliding with the vehicle obstacle
-                    if (playerX < vehicleX + vehicleObstacle.getWidth() &&
-                            playerX + character.getWidth() > vehicleX &&
-                            playerY < vehicleY + vehicleObstacle.getHeight() &&
-                            playerY + character.getHeight() > vehicleY) {
-
-                        System.out.println("Collided with vehicle using new method");
-
-                    }
-                }
 
                 vehicle.setY(position);
                 vehicleObj.setPosY(position);
