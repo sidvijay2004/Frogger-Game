@@ -8,55 +8,7 @@
     tools:context=".GameScreen">
 
 
-    <TextView
-        android:id="@+id/nameGameScreen"
-        android:layout_width="278dp"
-        android:layout_height="51dp"
-        android:shadowRadius="@dimen/material_emphasis_disabled"
-        android:singleLine="false"
-        android:soundEffectsEnabled="true"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="#8958E1"
-        android:textColorHighlight="#3F51B5"
-        android:textColorHint="#C18989"
-        android:textColorLink="#D1C1C1"
-        android:textSize="30sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004" />
-
-
-    <TextView
-        android:id="@+id/difficultyAndNumLives"
-        android:layout_width="272dp"
-        android:layout_height="37dp"
-        android:shadowRadius="@dimen/material_emphasis_disabled"
-        android:singleLine="false"
-        android:soundEffectsEnabled="true"
-        android:text=""
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-        android:textColor="#8958E1"
-        android:textColorHighlight="#3F51B5"
-        android:textColorHint="#C18989"
-        android:textColorLink="#D1C1C1"
-        android:textSize="15sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.077" />
-
-
-
-
-<!--    <com.example.myapplication.StartTile-->
+    <!--    <com.example.myapplication.StartTile-->
 <!--        android:id="@+id/startTile"-->
 <!--        android:layout_width="415dp"-->
 <!--        android:layout_height="70dp"-->
@@ -100,6 +52,50 @@
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:layout_constraintVertical_bias="0.55" />-->
 
+    <TextView
+        android:id="@+id/nameGameScreen"
+        android:layout_width="182dp"
+        android:layout_height="33dp"
+        android:shadowRadius="@dimen/material_emphasis_disabled"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#8958E1"
+        android:textColorHighlight="#3F51B5"
+        android:textColorHint="#C18989"
+        android:textColorLink="#D1C1C1"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/difficultyAndNumLives"
+        android:layout_width="210dp"
+        android:layout_height="26dp"
+        android:shadowRadius="@dimen/material_emphasis_disabled"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text=""
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#8958E1"
+        android:textColorHighlight="#3F51B5"
+        android:textColorHint="#C18989"
+        android:textColorLink="#D1C1C1"
+        android:textSize="15sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.003" />
+
     <ImageView
         android:id="@+id/sprite"
         android:layout_width="29dp"
@@ -141,8 +137,11 @@
 
     <ImageView
         android:id="@+id/vehicle3"
-        android:layout_width="123dp"
-        android:layout_height="95dp"
+        android:layout_width="119dp"
+        android:layout_height="46dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -155,11 +154,11 @@
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Score: 0"
-        android:textSize="24sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

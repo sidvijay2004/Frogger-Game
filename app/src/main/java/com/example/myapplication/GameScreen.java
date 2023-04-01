@@ -31,15 +31,14 @@ public class GameScreen extends AppCompatActivity {
     private Vehicle vehicleTwo;
     private Vehicle vehicleThree;
     private int upperHeightBounds;
-
     private boolean positionInitialized = false;
 
     //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
     private int[] gameMap = {0, 1, 1, 1, 2, 3, 3, 3, 4};
-    private int[] widths = {200, 200, 150, 150, 20};
+    private int[] widths = {200, 200, 300, 150, 20};
     private Tile[] gameTiles;
 
-    private int mapUpperPosition = 500;
+    private int mapUpperPosition = 200;
 
     private ImageView[] vehicleList = new ImageView[3];
 
@@ -49,29 +48,25 @@ public class GameScreen extends AppCompatActivity {
     private int score = 0;
     private int minYPos = 20000;
 
-
-
     public static final int SCREEN_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
 
 
     private int updateTimePeriod = 50;
-
-
-    public static final int SCREEN_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
 
-        gameTiles = new Tile[gameMap.length];
-        drawTiles();
+
 
         gameCharacter = (Player) getIntent().getSerializableExtra("playerObject");
         gameScreenName = (TextView) findViewById(R.id.nameGameScreen);
         character = (ImageView) findViewById(R.id.sprite);
         difficultyAndNumLives = (TextView) findViewById(R.id.difficultyAndNumLives);
+
+        gameTiles = new Tile[gameMap.length];
+        drawTiles();
 
         vehicle1 = (ImageView) findViewById(R.id.vehicle1);
         vehicle2 = (ImageView) findViewById(R.id.vehicle2);
@@ -99,7 +94,10 @@ public class GameScreen extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         width = displayMetrics.widthPixels;
-        gameCharacter.setPosition((int) character.getX(), (int) character.getY());
+//        gameCharacter.setPosition((int) character.getX(), (int) character.getY());
+//        gameCharacter.setStartPosX(gameCharacter.getPosX());
+//        gameCharacter.setStartPosY(gameCharacter.getPosY());
+
         character.setZ(1);
         moveVehicles();
 
@@ -107,8 +105,11 @@ public class GameScreen extends AppCompatActivity {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                if(checkRiverCollision(character)) {
+                checkRiverCollision(character);
+                checkVehicleCollision(character, vehicleList);
+                if(gameCharacter.isInCollision()) {
                     System.out.println("IN COLLISION!");
+                    killCharacter();
                 }
                 handler.postDelayed(this, updateTimePeriod);
             }
@@ -133,32 +134,6 @@ public class GameScreen extends AppCompatActivity {
         return false;
     }
 
-    public boolean checkVehicleCollision(ImageView character, ImageView[] vehicles) {
-        if (character != null) {
-            Rect characterRect = new Rect();
-            character.getHitRect(characterRect);
-            for (ImageView vehicle : vehicles) {
-                if (vehicle != null) { // add null check
-                    Rect vehicleRect = new Rect();
-                    vehicle.getHitRect(vehicleRect);
-//                    System.out.println("characterRect: " + characterRect.toShortString());
-//                    System.out.println("vehicleRect: " + vehicleRect.toShortString());
-                    if (characterRect.intersect(vehicleRect)) {
-                        return true; // Collision detected
-                    }
-
-
-
-                }
-            }
-
-        }
-
-
-
-        return false; // No collision detected
-    }
-
 
 
     public boolean checkVehicleCollision(ImageView character, ImageView[] vehicles) {
@@ -179,23 +154,24 @@ public class GameScreen extends AppCompatActivity {
 //                    System.out.println("vehicleRect: " + vehicleRect.toShortString());
 
                     if (characterRect.intersect(vehicleRect)) {
+                        gameCharacter.setInCollision(true);
                         return true; // Collision detected
                     }
-
-
-
                 }
             }
-
         }
-
-
-
         return false; // No collision detected
     }
 
 
-
+    //Moves character back to initial position, and subtracts life by one.
+    private void killCharacter() {
+        gameCharacter.setPosition(gameCharacter.getStartPosX(), gameCharacter.getStartPosY());
+        character.setX(gameCharacter.getPosX());
+        character.setY(gameCharacter.getPosY());
+        gameCharacter.setInCollision(false);
+        lives
+    }
 
 
     //Draws the tiles on the screen based on the game map array, and returns the startTile:
@@ -207,6 +183,7 @@ public class GameScreen extends AppCompatActivity {
             switch (gameMap[i]) {
             case 0:
                 tile = new GoalTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                gameCharacter.setBoundsTop(getPositionFromIndex(i));
                 break;
             case 1:
                 tile = new RiverTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
@@ -219,6 +196,12 @@ public class GameScreen extends AppCompatActivity {
                 break;
             case 4:
                 tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                int startPositionX = SCREEN_WIDTH / 2;
+                int startPositionY = getPositionFromIndex(i) + 50;
+                gameCharacter.setStartPosX(startPositionX);
+                gameCharacter.setStartPosY(startPositionY);
+
+
                 break;
             default:
                 break;
@@ -286,7 +269,6 @@ public class GameScreen extends AppCompatActivity {
             gameCharacter.setPosition((int) character.getX(), (int) character.getY());
             gameCharacter.setBoundsLeft(10);
             gameCharacter.setBoundsRight(width, character.getWidth());
-            gameCharacter.setBoundsTop(this.upperHeightBounds);
             gameCharacter.setBoundsDown(screenBottomPoint - widths[4],
                     widths[4], character.getHeight());
         }

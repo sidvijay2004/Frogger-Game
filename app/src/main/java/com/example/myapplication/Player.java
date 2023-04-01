@@ -2,6 +2,13 @@ package com.example.myapplication;
 import java.io.Serializable;
 
 public class Player implements Serializable {
+
+    public void setNumLives(int numLives) {
+        this.numLives = numLives;
+    }
+
+    private int numLives;
+
     private int posX;
     private int posY;
 
@@ -21,16 +28,27 @@ public class Player implements Serializable {
 
     private Vehicle vehicle1;
     private Vehicle vehicle2;
-
-
-
     private Vehicle vehicle3;
-
-
     private boolean inCollision;
-    private Vehicle vehicle1;
-    private Vehicle vehicle2;
-    private Vehicle vehicle3;
+
+    public int getStartPosX() {
+        return startPosX;
+    }
+
+    public void setStartPosX(int startPosX) {
+        this.startPosX = startPosX;
+    }
+
+    public int getStartPosY() {
+        return startPosY;
+    }
+
+    public void setStartPosY(int startPosY) {
+        this.startPosY = startPosY;
+    }
+
+    private int startPosX;
+    private int startPosY;
 
     public void setDifficulty(String difficulty, int numLives) {
         this.difficulty = difficulty;
