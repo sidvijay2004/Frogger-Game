@@ -23,7 +23,7 @@ public class ConfigPage extends AppCompatActivity {
     private ImageButton charSelectRight;
     private ImageView charImageDisplay;
 
-//    private Player mainPlayer;
+    //private Player mainPlayer;
     private int charSelectionId;
 
     private TextView difficultySelector;
@@ -135,7 +135,7 @@ public class ConfigPage extends AppCompatActivity {
                     String diffString = difficultySelector.getText().toString();
 
                     Intent intent = new Intent(ConfigPage.this, GameScreen.class);
-                    intent.putExtra(NAME_ID , name.getText().toString());
+                    intent.putExtra(NAME_ID, name.getText().toString());
 
                     Player mainPlayer = new Player();
 
