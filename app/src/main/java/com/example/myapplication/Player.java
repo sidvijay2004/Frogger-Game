@@ -16,6 +16,16 @@ public class Player implements Serializable {
     private int numLives;
 
 
+    private Vehicle vehicle1;
+    private Vehicle vehicle2;
+
+
+
+    private Vehicle vehicle3;
+
+
+    private boolean inCollision;
+
     public void setDifficulty(String difficulty, int numLives) {
         this.difficulty = difficulty;
         this.numLives = numLives;
@@ -102,6 +112,48 @@ public class Player implements Serializable {
 
     public int getBoundsUp() {
         return boundsUp;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setVehicle1(Vehicle vehicle1) {
+        this.vehicle1 = vehicle1;
+    }
+
+    public void setVehicle2(Vehicle vehicle2) {
+        this.vehicle2 = vehicle2;
+    }
+
+    public void setVehicle3(Vehicle vehicle3) {
+        this.vehicle3 = vehicle3;
+    }
+    public Vehicle getVehicle1() {
+        return vehicle1;
+    }
+
+    public Vehicle getVehicle2() {
+        return vehicle2;
+    }
+
+    public Vehicle getVehicle3() {
+        return vehicle3;
+    }
+
+    public boolean assertEqualsDouble(double one, double two) {
+        if (one <= two + 5 && one >= two - 5) {
+            return true;
+        }
+        return false;
+
+    }
+    public boolean isInCollision() {
+        return inCollision;
+    }
+
+    public void setInCollision(boolean inCollision) {
+        this.inCollision = inCollision;
     }
 
 }

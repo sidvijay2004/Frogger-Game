@@ -6,7 +6,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.ValueAnimator;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,6 +37,8 @@ public class GameScreen extends AppCompatActivity {
     //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
     private int[] gameMap = {0,1,1,1,2,3,3,3,4};
     private int[] widths = {200, 225, 200, 250, 200};
+    private Tile[] gameTiles;
+
     private int mapUpperPosition = 500;
 
 
@@ -43,8 +47,14 @@ public class GameScreen extends AppCompatActivity {
     private int score = 0;
     private int minYPos= 20000;
 
+
     int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
 
+
+    private int updateTimePeriod = 50;
+
+
+    public static final int SCREEN_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +62,7 @@ public class GameScreen extends AppCompatActivity {
         setContentView(R.layout.activity_game_screen);
 
 
-
+        gameTiles = new Tile[gameMap.length];
         drawTiles();
 
         gameCharacter = (Player) getIntent().getSerializableExtra("playerObject");
@@ -81,6 +91,61 @@ public class GameScreen extends AppCompatActivity {
         gameCharacter.setPosition((int) character.getX(), (int) character.getY());
         character.setZ(1);
         moveVehicles();
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if(checkRiverCollision(character)) {
+                    System.out.println("IN COLLISION!");
+                }
+                handler.postDelayed(this, updateTimePeriod);
+            }
+        }, updateTimePeriod);
+    }
+
+
+    public boolean checkRiverCollision(ImageView character) {
+        if (character != null) {
+            Rect characterRect = new Rect();
+            character.getHitRect(characterRect);
+            for(int i = 0; i < gameMap.length; i++) {
+                if(gameMap[i] == 1) {
+                    Rect riverTileRect = gameTiles[i].getRect();
+                    if(characterRect.intersect(riverTileRect)) {
+                        gameCharacter.setInCollision(true);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean checkVehicleCollision(ImageView character, ImageView[] vehicles) {
+        if (character != null) {
+            Rect characterRect = new Rect();
+            character.getHitRect(characterRect);
+            for (ImageView vehicle : vehicles) {
+                if (vehicle != null) { // add null check
+                    Rect vehicleRect = new Rect();
+                    vehicle.getHitRect(vehicleRect);
+//                    System.out.println("characterRect: " + characterRect.toShortString());
+//                    System.out.println("vehicleRect: " + vehicleRect.toShortString());
+                    if (characterRect.intersect(vehicleRect)) {
+                        return true; // Collision detected
+                    }
+
+
+
+                }
+            }
+
+        }
+
+
+
+        return false; // No collision detected
     }
 
     //Draws the tiles on the screen based on the game map array, and returns the startTile:
@@ -106,6 +171,7 @@ public class GameScreen extends AppCompatActivity {
                     tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]],null);
                     break;
             }
+            gameTiles[i] = tile;
             ConstraintLayout layout = findViewById(R.id.game_screen_layout);
             layout.addView(tile);
             if(gameMap[i] == 0) {
@@ -140,7 +206,6 @@ public class GameScreen extends AppCompatActivity {
         animator1.setDuration(5000);
         animator1.setRepeatMode(ValueAnimator.RESTART);
         animator1.setRepeatCount(ValueAnimator.INFINITE);
-        System.out.println(vehicle1.getRight());
         animator1.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
