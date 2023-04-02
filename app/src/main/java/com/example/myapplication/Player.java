@@ -21,7 +21,6 @@ public class Player implements Serializable {
 
 
     private String difficulty;
-    private int numLives;
     private int score = 0;
     private int minYPos = 20000;
 
@@ -61,6 +60,8 @@ public class Player implements Serializable {
     public int getNumLives() {
         return numLives;
     }
+
+    public void decrementLives() { this.numLives--; }
 
     public void setImageResourceId(int id) {
         imageResource = id;

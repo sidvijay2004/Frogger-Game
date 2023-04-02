@@ -174,7 +174,13 @@ public class GameScreen extends AppCompatActivity {
         character.setX(gameCharacter.getPosX());
         character.setY(gameCharacter.getPosY());
         gameCharacter.setInCollision(false);
-        lives
+        gameCharacter.decrementLives();
+        TextView difficultyAndNumLives = findViewById(R.id.difficultyAndNumLives);
+        String difficultyLevel = gameCharacter.getDifficulty();
+        int numLives = gameCharacter.getNumLives();
+        difficultyAndNumLives.setText(
+                String.format("Difficulty: %s | Num Lives: %d", difficultyLevel, numLives)
+        );
     }
 
 
