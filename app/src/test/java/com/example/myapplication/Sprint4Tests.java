@@ -33,5 +33,22 @@ public class Sprint4Tests {
         assertEquals(true, player.isGoal(riverBorder));
     }
 
+    @Test
+    public void testDecrementLives() {
+        Player player = new Player();
+        player.setDifficulty("EASY", 10);
+        player.decrementLives();
+        assertEquals(player.getNumLives(), 9);
+        player.decrementLives();
+        player.decrementLives();
+        assertEquals(player.getNumLives(), 7);
+    }
 
+    @Test
+    public void testDead() {
+        Player player = new Player();
+        player.setDifficulty("ONE_LIFE", 1);
+        player.decrementLives();
+        assertEquals(true, player.isDead());
+    }
 }
