@@ -48,6 +48,7 @@ public class Sprint4Tests {
     public void testDead() {
         Player player = new Player();
         player.setDifficulty("ONE_LIFE", 1);
+        assertEquals(false, player.isDead());
         player.decrementLives();
         assertEquals(true, player.isDead());
     }
