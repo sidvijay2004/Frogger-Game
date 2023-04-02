@@ -32,6 +32,9 @@ public class ConfigPage extends AppCompatActivity {
     private int diffId;
     public static final String NAME_ID = "name1";
 
+    //finishing flag
+    public static EndScreen.Flag mFlag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class ConfigPage extends AppCompatActivity {
 
         Player mainPlayer = new Player();
 
+        mFlag = new EndScreen.Flag();
     }
 
     public void updateCharDisplay() {
@@ -177,5 +181,14 @@ public class ConfigPage extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //restart
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        if(mFlag.getFinishFlg() == true){
+            finish();
+        }
     }
 }

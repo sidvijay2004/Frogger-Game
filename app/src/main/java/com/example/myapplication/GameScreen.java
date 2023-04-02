@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -31,6 +32,9 @@ public class GameScreen extends AppCompatActivity {
     private int upperHeightBounds;
 
     private boolean positionInitialized = false;
+
+    //finishing flag
+    public static EndScreen.Flag mFlag;
 
     //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
     private int[] gameMap = {0, 1, 1, 1, 2, 3, 3, 3, 4};
@@ -84,6 +88,8 @@ public class GameScreen extends AppCompatActivity {
         gameCharacter.setPosition((int) character.getX(), (int) character.getY());
         character.setZ(1);
         moveVehicles();
+
+        mFlag = new EndScreen.Flag();
     }
 
     //Draws the tiles on the screen based on the game map array, and returns the startTile:
@@ -200,7 +206,12 @@ public class GameScreen extends AppCompatActivity {
         score = gameCharacter.getScore();
         TextView scoreView = findViewById(R.id.scoreText);
         scoreView.setText("Score: " + score);
-
+        //Goal
+        if (gameCharacter.isGoal(getPositionFromIndex(1))) {
+            Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
+            intentScore.putExtra("SAVED_SCORE", score);
+            startActivity(intentScore);
+        }
     }
     public void moveDown() {
         gameCharacter.moveDown();
@@ -242,8 +253,13 @@ public class GameScreen extends AppCompatActivity {
 
     }
 
-
-
-
+    //restart
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        if(mFlag.getFinishFlg() == true){
+            finish();
+        }
+    }
 
 }

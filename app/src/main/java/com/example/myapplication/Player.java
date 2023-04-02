@@ -165,4 +165,12 @@ public class Player implements Serializable {
 
     }
 
+    public boolean isGoal(int riverAndGoalTileBorderPos) {
+        if (this.getPosY() < riverAndGoalTileBorderPos) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

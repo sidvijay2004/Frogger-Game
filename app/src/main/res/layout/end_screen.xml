@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8958E1">
+
+    <TextView
+        android:id="@+id/gameOverTitle"
+        android:layout_width="390dp"
+        android:layout_height="113dp"
+        android:shadowRadius="@dimen/material_emphasis_disabled"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="Game Over"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#4CAF50"
+        android:textColorHighlight="#3F51B5"
+        android:textColorHint="#C18989"
+        android:textColorLink="#D1C1C1"
+        android:textSize="80sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.097" />
+
+    <TextView
+        android:id="@+id/finalScore"
+        android:layout_width="390dp"
+        android:layout_height="113dp"
+        android:shadowRadius="@dimen/material_emphasis_disabled"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="10000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#4CAF50"
+        android:textColorHighlight="#3F51B5"
+        android:textColorHint="#C18989"
+        android:textColorLink="#D1C1C1"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.332" />
+
+    <Button
+        android:id="@+id/restartGameBttn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restart Game"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.547" />
+
+    <Button
+        android:id="@+id/quitGameBttn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Exit Game"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.669" />
+</androidx.constraintlayout.widget.ConstraintLayout>
