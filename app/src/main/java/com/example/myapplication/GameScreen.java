@@ -55,7 +55,7 @@ public class GameScreen extends AppCompatActivity {
     public static final int SCREEN_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
 
 
-    private int updateTimePeriod = 50;
+    private int updateTimePeriod = 300;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +65,14 @@ public class GameScreen extends AppCompatActivity {
 
 
         gameCharacter = (Player) getIntent().getSerializableExtra("playerObject");
+        Rect characterRect = new Rect();
+
+
         gameScreenName = (TextView) findViewById(R.id.nameGameScreen);
         character = (ImageView) findViewById(R.id.sprite);
         difficultyAndNumLives = (TextView) findViewById(R.id.difficultyAndNumLives);
-
+        character.getHitRect(characterRect);
+        gameCharacter.setPlayerRect(characterRect);
         gameTiles = new Tile[gameMap.length];
         drawTiles();
 
@@ -106,20 +110,39 @@ public class GameScreen extends AppCompatActivity {
         moveVehicles();
         mFlag = new EndScreen.Flag();
 
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                checkRiverCollision(character);
-                checkVehicleCollision(character, vehicleList);
-                if(gameCharacter.isInCollision()) {
-                    System.out.println("IN COLLISION!");
-                    killCharacter();
+                checkAndHandleCollisions(character, vehicleList);
+                if(!gameCharacter.isDead()) {
+                    handler.postDelayed(this, updateTimePeriod);
                 }
-                handler.postDelayed(this, updateTimePeriod);
             }
         }, updateTimePeriod);
     }
 
+    public void checkAndHandleCollisions(ImageView character, ImageView[] vehicles) {
+        checkRiverCollision(character);
+        if(gameCharacter.isInCollision()) {
+            gameCharacter.riverCollisionPenalty();
+            killCharacter();
+        }
+
+        checkVehicleCollision(character, vehicleList);
+
+        if(gameCharacter.isInCollision()) {
+            gameCharacter.addVehicleCollisionPenalty();
+            killCharacter();
+        }
+        if((gameCharacter.getNumLives() < 0 || gameCharacter.isGoal(getPositionFromIndex(0))) && !gameCharacter.isDead()) {
+            Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
+            intentScore.putExtra("SAVED_SCORE", score);
+            startActivity(intentScore);
+            gameCharacter.setDead();
+        }
+
+    }
 
     public boolean checkRiverCollision(ImageView character) {
         if (character != null) {
@@ -156,7 +179,9 @@ public class GameScreen extends AppCompatActivity {
 
 //                    System.out.println("characterRect: " + characterRect.toShortString());
 //                    System.out.println("vehicleRect: " + vehicleRect.toShortString());
+                    if(gameCharacter.isInCollision()) {
 
+                    }
                     if (characterRect.intersect(vehicleRect)) {
                         gameCharacter.setInCollision(true);
                         return true; // Collision detected
@@ -181,6 +206,9 @@ public class GameScreen extends AppCompatActivity {
         difficultyAndNumLives.setText(
                 String.format("Difficulty: %s | Num Lives: %d", difficultyLevel, numLives)
         );
+
+        TextView scoreView = findViewById(R.id.scoreText);
+        scoreView.setText("Score: " + gameCharacter.getScore());
     }
 
 
@@ -210,7 +238,7 @@ public class GameScreen extends AppCompatActivity {
                 int startPositionY = getPositionFromIndex(i) + 50;
                 gameCharacter.setStartPosX(startPositionX);
                 gameCharacter.setStartPosY(startPositionY);
-
+                gameCharacter.setPosition(startPositionX, startPositionY);
 
                 break;
             default:
@@ -282,31 +310,24 @@ public class GameScreen extends AppCompatActivity {
             gameCharacter.setBoundsDown(screenBottomPoint - widths[4],
                     widths[4], character.getHeight());
         }
-        if (keycode == KeyEvent.KEYCODE_W) {
-
-            moveUp();
-            if (checkVehicleCollision(character, vehicleList)) {
-                System.out.println("Collided with vehicle");
+        if(!gameCharacter.isDead()) {
+            if (keycode == KeyEvent.KEYCODE_W) {
+                moveUp();
+                checkAndHandleCollisions(character, vehicleList);
+                return true;
+            } else if (keycode == KeyEvent.KEYCODE_S) {
+                moveDown();
+                checkAndHandleCollisions(character, vehicleList);
+                return true;
+            } else if (keycode == KeyEvent.KEYCODE_D) {
+                moveRight();
+                checkAndHandleCollisions(character, vehicleList);
+                return true;
+            } else if (keycode == KeyEvent.KEYCODE_A) {
+                moveLeft();
+                checkAndHandleCollisions(character, vehicleList);
+                return true;
             }
-            return true;
-        } else if (keycode == KeyEvent.KEYCODE_S) {
-            moveDown();
-            if (checkVehicleCollision(character, vehicleList)) {
-                System.out.println("Collided with vehicle");
-            }
-            return true;
-        } else if (keycode == KeyEvent.KEYCODE_D) {
-            moveRight();
-            if (checkVehicleCollision(character, vehicleList)) {
-                System.out.println("Collided with vehicle");
-            }
-            return true;
-        } else if (keycode == KeyEvent.KEYCODE_A) {
-            moveLeft();
-            if (checkVehicleCollision(character, vehicleList)) {
-                System.out.println("Collided with vehicle");
-            }
-            return true;
         }
         return false;
     }
@@ -317,12 +338,6 @@ public class GameScreen extends AppCompatActivity {
         score = gameCharacter.getScore();
         TextView scoreView = findViewById(R.id.scoreText);
         scoreView.setText("Score: " + score);
-        //Goal
-        if (gameCharacter.isGoal(getPositionFromIndex(1))) {
-            Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
-            intentScore.putExtra("SAVED_SCORE", score);
-            startActivity(intentScore);
-        }
     }
     public void moveDown() {
         gameCharacter.moveDown();

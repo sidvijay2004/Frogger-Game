@@ -1,8 +1,9 @@
 package com.example.myapplication;
+import android.graphics.Rect;
+
 import java.io.Serializable;
 
 public class Player implements Serializable {
-
     public void setNumLives(int numLives) {
         this.numLives = numLives;
     }
@@ -29,6 +30,17 @@ public class Player implements Serializable {
     private Vehicle vehicle2;
     private Vehicle vehicle3;
     private boolean inCollision;
+    private boolean isDead = false;
+
+    public Rect getPlayerRect() {
+        return playerRect;
+    }
+
+    public void setPlayerRect(Rect playerRect) {
+        this.playerRect = new Rect(playerRect);
+    }
+
+    private Rect playerRect;
 
     public int getStartPosX() {
         return startPosX;
@@ -100,6 +112,12 @@ public class Player implements Serializable {
         }
     }
 
+    public void setDead() {
+        isDead = true;
+    }
+    public boolean isDead() {
+        return isDead;
+    }
     public void moveUp(Vehicle v1, Vehicle v2, Vehicle v3) {
         posY -= 10;
         if (posY < boundsUp) {
@@ -204,9 +222,21 @@ public class Player implements Serializable {
     public boolean isGoal(int riverAndGoalTileBorderPos) {
         if (this.getPosY() < riverAndGoalTileBorderPos) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
+    public boolean isCollidingWithPlayer(Rect collisionRect) {
+        if(playerRect.intersect(collisionRect)) {
+            return true;
+        }
+        return false;
+    }
+    public void riverCollisionPenalty() {
+        score /= 3;
+    }
+
+    public void addVehicleCollisionPenalty() {
+        score /= 2;
+    }
 }
