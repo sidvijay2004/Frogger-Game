@@ -73,7 +73,12 @@ public class Player implements Serializable {
         return numLives;
     }
 
-    public void decrementLives() { this.numLives--; }
+    public void decrementLives() {
+        this.numLives--;
+        if(numLives == 0) {
+            setDead();
+        }
+    }
 
     public void setImageResourceId(int id) {
         imageResource = id;
@@ -99,6 +104,9 @@ public class Player implements Serializable {
     }
 
     public void moveLeft() {
+        if(isDead) {
+            return;
+        }
         posX -= 10;
         if (posX < boundsLeft) {
             posX = boundsLeft;
@@ -106,6 +114,9 @@ public class Player implements Serializable {
     }
 
     public void moveRight() {
+        if(isDead) {
+            return;
+        }
         posX += 10;
         if (posX > boundsRight) {
             posX = boundsRight;
@@ -119,6 +130,10 @@ public class Player implements Serializable {
         return isDead;
     }
     public void moveUp(Vehicle v1, Vehicle v2, Vehicle v3) {
+        if(isDead) {
+            return;
+        }
+
         posY -= 10;
         if (posY < boundsUp) {
             posY = boundsUp;
@@ -147,6 +162,9 @@ public class Player implements Serializable {
     }
 
     public void moveDown() {
+        if(isDead) {
+            return;
+        }
         posY += 10;
         if (posY > boundsDown) {
             posY = boundsDown;
@@ -227,6 +245,10 @@ public class Player implements Serializable {
     }
 
     public boolean isCollidingWithPlayer(Rect collisionRect) {
+        playerRect.left = posX;
+        playerRect.right = posX + playerRect.width();
+        playerRect.top = posY;
+        playerRect.bottom = posY + playerRect.height();
         if(playerRect.intersect(collisionRect)) {
             return true;
         }

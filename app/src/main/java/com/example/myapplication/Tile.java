@@ -10,11 +10,11 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class Tile extends View {
-    private int laneWidth;
-    private int positionX;
-    private int positionY;
-    private Paint tilePaint;
-    private Rect tileRect;
+    protected int laneWidth;
+    protected int positionX;
+    protected int positionY;
+    protected Paint tilePaint;
+    protected Rect tileRect;
 
     public Tile(Context context, int color, int positionX,
                 int positionY, @Nullable AttributeSet attrs) {
@@ -39,7 +39,6 @@ public class Tile extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRect(positionX, positionY, getWidth(), positionY + laneWidth, tilePaint);
         this.tileRect = new Rect(positionX, positionY, getWidth(), positionY + laneWidth);
         canvas.drawRect(positionX, positionY, getWidth(), positionY + laneWidth, tilePaint);
     }
