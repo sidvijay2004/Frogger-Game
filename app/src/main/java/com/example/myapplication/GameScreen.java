@@ -135,7 +135,7 @@ public class GameScreen extends AppCompatActivity {
             gameCharacter.addVehicleCollisionPenalty();
             killCharacter();
         }
-        if((gameCharacter.getNumLives() < 0 || gameCharacter.isGoal(getPositionFromIndex(0))) && !gameCharacter.isDead()) {
+        if((gameCharacter.getNumLives() <= 0 || gameCharacter.isGoal(getPositionFromIndex(0))) && !gameCharacter.isDead()) {
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
             intentScore.putExtra("SAVED_SCORE", score);
             startActivity(intentScore);
