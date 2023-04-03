@@ -85,6 +85,7 @@ public class Sprint4Tests {
         player.setScore(100);
         player.riverCollisionPenalty();
         assertTrue(player.getScore() <= 50);
+        assertTrue(player.getScore() >= 0);
     }
 
 
@@ -94,6 +95,7 @@ public class Sprint4Tests {
         player.setScore(100);
         player.addVehicleCollisionPenalty();
         assertTrue(player.getScore() <= 50);
+        assertTrue(player.getScore() >= 0);
     }
 
 
