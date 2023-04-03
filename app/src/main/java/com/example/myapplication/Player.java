@@ -75,7 +75,7 @@ public class Player implements Serializable {
 
     public void decrementLives() {
         this.numLives--;
-        if(numLives == 0) {
+        if(numLives < 0) {
             setDead();
         }
     }

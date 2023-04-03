@@ -59,6 +59,9 @@ public class GameScreen extends AppCompatActivity {
     private int bridgeWidth = 400;
     private int bridgeStart = 100;
 
+    private boolean endGameScreenDisplayed = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +119,7 @@ public class GameScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 checkAndHandleCollisions(character, vehicleList);
-                if(!gameCharacter.isDead()) {
+                if(!endGameScreenDisplayed) {
                     handler.postDelayed(this, updateTimePeriod);
                 }
             }
@@ -139,7 +142,9 @@ public class GameScreen extends AppCompatActivity {
             gameCharacter.addVehicleCollisionPenalty();
             killCharacter();
         }
-        if((gameCharacter.getNumLives() < 0 || gameCharacter.isGoal(getPositionFromIndex(0) + widths[0] - 50)) && !gameCharacter.isDead()) {
+
+        if((gameCharacter.getNumLives() < 0 || gameCharacter.isGoal(getPositionFromIndex(0) + widths[0] - 50)) && !endGameScreenDisplayed) {
+            endGameScreenDisplayed = true;
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
             intentScore.putExtra("SAVED_SCORE", score);
             startActivity(intentScore);
