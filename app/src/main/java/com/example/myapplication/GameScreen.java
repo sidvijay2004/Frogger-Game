@@ -148,6 +148,7 @@ public class GameScreen extends AppCompatActivity {
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
             intentScore.putExtra("SAVED_SCORE", score);
             startActivity(intentScore);
+            finish();
             gameCharacter.setDead();
         }
 

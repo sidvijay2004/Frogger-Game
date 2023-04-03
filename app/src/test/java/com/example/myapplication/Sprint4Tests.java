@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -47,7 +48,7 @@ public class Sprint4Tests {
     @Test
     public void testDead() {
         Player player = new Player();
-        player.setDifficulty("ONE_LIFE", 1);
+        player.setDifficulty("ONE_LIFE", 0);
         assertEquals(false, player.isDead());
         player.decrementLives();
         assertEquals(true, player.isDead());
@@ -77,4 +78,25 @@ public class Sprint4Tests {
         player.moveDown();
         assertEquals(510, player.getPosY());
     }
+
+    @Test
+    public void testRiverCollisionScore() {
+        Player player = new Player();
+        player.setScore(100);
+        player.riverCollisionPenalty();
+        assertTrue(player.getScore() <= 50);
+    }
+
+
+    @Test
+    public void testVehicleCollisionScore() {
+        Player player = new Player();
+        player.setScore(100);
+        player.addVehicleCollisionPenalty();
+        assertTrue(player.getScore() <= 50);
+    }
+
+
+
+
 }

@@ -261,4 +261,11 @@ public class Player implements Serializable {
     public void addVehicleCollisionPenalty() {
         score /= 2;
     }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+
+
 }
