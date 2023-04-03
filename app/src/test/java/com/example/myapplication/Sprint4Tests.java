@@ -80,6 +80,30 @@ public class Sprint4Tests {
     }
 
     @Test
+    public void testMoveLeftAfterDeath() {
+        Player player = new Player();
+        player.setBoundsLeft(-1000);
+        player.setPosition(500, 500);
+        player.moveLeft();
+        assertEquals(490, player.getPosX());
+        player.setDead();
+        player.moveLeft();
+        assertEquals(490, player.getPosX());
+    }
+
+    @Test
+    public void testMoveRightAfterDeath() {
+        Player player = new Player();
+        player.setBoundsRight(1000, 10);
+        player.setPosition(500, 500);
+        player.moveRight();
+        assertEquals(510, player.getPosX());
+        player.setDead();
+        player.moveRight();
+        assertEquals(510, player.getPosX());
+    }
+
+    @Test
     public void testRiverCollisionScore() {
         Player player = new Player();
         player.setScore(100);
