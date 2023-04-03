@@ -138,27 +138,27 @@ public class Player implements Serializable {
         if (posY < boundsUp) {
             posY = boundsUp;
         }
+        if(v1 != null && v2 != null && v3 != null) {
+            double height1 = v1.getPosY();
+            double height2 = v2.getPosY();
+            double height3 = v3.getPosY();
 
-        double height1 = v1.getPosY();
-        double height2 = v2.getPosY();
-        double height3 = v3.getPosY();
-
-        if (assertEqualsDouble(posY, height1) && posY < minYPos) {
-            minYPos = posY;
-            score += 20;
-        } else if (assertEqualsDouble(posY, height2) && posY < minYPos) {
-            minYPos = posY;
-            score += 40;
-        } else if (assertEqualsDouble(posY, height3) && posY < minYPos) {
-            minYPos = posY;
-            score += 100;
-        } else {
-            if (posY < minYPos) {
+            if (assertEqualsDouble(posY, height1) && posY < minYPos) {
                 minYPos = posY;
-                score += 5;
+                score += 20;
+            } else if (assertEqualsDouble(posY, height2) && posY < minYPos) {
+                minYPos = posY;
+                score += 40;
+            } else if (assertEqualsDouble(posY, height3) && posY < minYPos) {
+                minYPos = posY;
+                score += 100;
+            } else {
+                if (posY < minYPos) {
+                    minYPos = posY;
+                    score += 5;
+                }
             }
         }
-
     }
 
     public void moveDown() {

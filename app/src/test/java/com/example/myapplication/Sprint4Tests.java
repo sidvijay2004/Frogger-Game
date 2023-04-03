@@ -52,4 +52,29 @@ public class Sprint4Tests {
         player.decrementLives();
         assertEquals(true, player.isDead());
     }
+
+    @Test
+    public void testMoveUpAfterDeath() {
+        Player player = new Player();
+        player.setBoundsTop(0);
+        player.setBoundsDown(100000000, 10, 50);
+        player.setPosition(500, 500);
+        player.moveUp(null, null, null);
+        assertEquals(490, player.getPosY());
+        player.setDead();
+        player.moveUp(null, null, null);
+        assertEquals(490, player.getPosY());
+    }
+    @Test
+    public void testMoveDownAfterDeath() {
+        Player player = new Player();
+        player.setBoundsTop(0);
+        player.setBoundsDown(100000000, 10, 50);
+        player.setPosition(500, 500);
+        player.moveDown();
+        assertEquals(510, player.getPosY());
+        player.setDead();
+        player.moveDown();
+        assertEquals(510, player.getPosY());
+    }
 }
