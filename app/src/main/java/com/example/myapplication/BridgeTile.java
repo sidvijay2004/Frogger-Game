@@ -21,8 +21,10 @@ public class BridgeTile extends Tile {
     @Override
     protected void onDraw(Canvas canvas) {
 
-        this.tileRect = new Rect(positionX, positionY, positionX + bridgeWidth, positionY + laneWidth);
-        canvas.drawRect(positionX, positionY, positionX + bridgeWidth, positionY + laneWidth, tilePaint);
+        this.tileRect = new Rect(positionX, positionY, positionX + bridgeWidth,
+                positionY + laneWidth);
+        canvas.drawRect(positionX, positionY, positionX + bridgeWidth,
+                positionY + laneWidth, tilePaint);
         this.bringToFront();
     }
 }

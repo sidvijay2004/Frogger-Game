@@ -75,7 +75,7 @@ public class Player implements Serializable {
 
     public void decrementLives() {
         this.numLives--;
-        if(numLives < 0) {
+        if (numLives < 0) {
             setDead();
         }
     }
@@ -104,7 +104,7 @@ public class Player implements Serializable {
     }
 
     public void moveLeft() {
-        if(isDead) {
+        if (isDead) {
             return;
         }
         posX -= 10;
@@ -114,7 +114,7 @@ public class Player implements Serializable {
     }
 
     public void moveRight() {
-        if(isDead) {
+        if (isDead) {
             return;
         }
         posX += 10;
@@ -130,7 +130,7 @@ public class Player implements Serializable {
         return isDead;
     }
     public void moveUp(Vehicle v1, Vehicle v2, Vehicle v3) {
-        if(isDead) {
+        if (isDead) {
             return;
         }
 
@@ -138,7 +138,7 @@ public class Player implements Serializable {
         if (posY < boundsUp) {
             posY = boundsUp;
         }
-        if(v1 != null && v2 != null && v3 != null) {
+        if (v1 != null && v2 != null && v3 != null) {
             double height1 = v1.getPosY();
             double height2 = v2.getPosY();
             double height3 = v3.getPosY();
@@ -162,7 +162,7 @@ public class Player implements Serializable {
     }
 
     public void moveDown() {
-        if(isDead) {
+        if (isDead) {
             return;
         }
         posY += 10;
@@ -249,7 +249,7 @@ public class Player implements Serializable {
         playerRect.right = posX + playerRect.width();
         playerRect.top = posY;
         playerRect.bottom = posY + playerRect.height();
-        if(playerRect.intersect(collisionRect)) {
+        if (playerRect.intersect(collisionRect)) {
             return true;
         }
         return false;

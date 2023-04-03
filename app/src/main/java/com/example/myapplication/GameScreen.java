@@ -35,7 +35,7 @@ public class GameScreen extends AppCompatActivity {
     private boolean positionInitialized = false;
 
     //finishing flag
-    public static EndScreen.Flag mFlag;
+    private static EndScreen.Flag mFlag;
 
     //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
     private int[] gameMap = {0, 1, 1, 1, 2, 3, 3, 3, 4};
@@ -106,9 +106,9 @@ public class GameScreen extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         width = displayMetrics.widthPixels;
-//        gameCharacter.setPosition((int) character.getX(), (int) character.getY());
-//        gameCharacter.setStartPosX(gameCharacter.getPosX());
-//        gameCharacter.setStartPosY(gameCharacter.getPosY());
+        // gameCharacter.setPosition((int) character.getX(), (int) character.getY());
+        // gameCharacter.setStartPosX(gameCharacter.getPosX());
+        // gameCharacter.setStartPosY(gameCharacter.getPosY());
 
         character.setZ(1);
         moveVehicles();
@@ -119,7 +119,7 @@ public class GameScreen extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             public void run() {
                 checkAndHandleCollisions(character, vehicleList);
-                if(!endGameScreenDisplayed) {
+                if (!endGameScreenDisplayed) {
                     handler.postDelayed(this, updateTimePeriod);
                 }
             }
@@ -128,22 +128,24 @@ public class GameScreen extends AppCompatActivity {
 
     public void checkAndHandleCollisions(ImageView character, ImageView[] vehicles) {
         checkRiverCollision(character);
-        if(gameCharacter.isInCollision()) {
+        if (gameCharacter.isInCollision()) {
             gameCharacter.riverCollisionPenalty();
             killCharacter();
         }
-        Rect playerRect= new Rect();
+        Rect playerRect = new Rect();
         character.getHitRect(playerRect);
         gameCharacter.setPlayerRect(playerRect);
 
         checkVehicleCollision(character, vehicleList);
 
-        if(gameCharacter.isInCollision()) {
+        if (gameCharacter.isInCollision()) {
             gameCharacter.addVehicleCollisionPenalty();
             killCharacter();
         }
 
-        if((gameCharacter.getNumLives() < 0 || gameCharacter.isGoal(getPositionFromIndex(0) + widths[0] - 50)) && !endGameScreenDisplayed) {
+        if ((gameCharacter.getNumLives() < 0
+                || gameCharacter.isGoal(getPositionFromIndex(0) + widths[0] - 50))
+                && !endGameScreenDisplayed) {
             endGameScreenDisplayed = true;
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
             intentScore.putExtra("SAVED_SCORE", score);
@@ -154,24 +156,32 @@ public class GameScreen extends AppCompatActivity {
 
     }
 
+    public static EndScreen.Flag getmFlag() {
+        return mFlag;
+    }
+
+    public static void setmFlag(EndScreen.Flag mFlag) {
+        GameScreen.mFlag = mFlag;
+    }
+
     public boolean checkRiverCollision(ImageView character) {
         if (character != null) {
             Rect characterRect = new Rect();
             character.getHitRect(characterRect);
-            for(int i = 0; i < gameMap.length; i++) {
-                if(gameMap[i] == 1) {
+            for (int i = 0; i < gameMap.length; i++) {
+                if (gameMap[i] == 1) {
                     boolean onBridge = false;
                     Rect riverTileRect = gameTiles[i].getRect();
-                    for(int j = 0; j < bridgeTiles.length; j++) {
-                        if(gameCharacter.isCollidingWithPlayer(bridgeTiles[j].getRect())) {
+                    for (int j = 0; j < bridgeTiles.length; j++) {
+                        if (gameCharacter.isCollidingWithPlayer(bridgeTiles[j].getRect())) {
                             onBridge = true;
                             break;
                         }
                     }
-                    if(onBridge) {
+                    if (onBridge) {
                         break;
                     }
-                    if(gameCharacter.isCollidingWithPlayer(riverTileRect)) {
+                    if (gameCharacter.isCollidingWithPlayer(riverTileRect)) {
                         gameCharacter.setInCollision(true);
                         return true;
                     }
@@ -192,8 +202,8 @@ public class GameScreen extends AppCompatActivity {
                     vehicle.getHitRect(vehicleRect);
 
 
-//                    System.out.println("characterRect: " + characterRect.toShortString());
-//                    System.out.println("vehicleRect: " + vehicleRect.toShortString());
+                    //System.out.println("characterRect: " + characterRect.toShortString());
+                    //System.out.println("vehicleRect: " + vehicleRect.toShortString());
                     if (gameCharacter.isCollidingWithPlayer(vehicleRect)) {
                         gameCharacter.setInCollision(true);
                         return true; // Collision detected
@@ -227,8 +237,8 @@ public class GameScreen extends AppCompatActivity {
     //Draws the tiles on the screen based on the game map array, and returns the startTile:
     private void drawTiles() {
         int bridgeTileCount = 0;
-        for(int i = 0; i < gameMap.length; i++) {
-            if(gameMap[i] == 1) {
+        for (int i = 0; i < gameMap.length; i++) {
+            if (gameMap[i] == 1) {
                 bridgeTileCount += 1;
             }
         }
@@ -246,7 +256,8 @@ public class GameScreen extends AppCompatActivity {
                 break;
             case 1:
                 tile = new RiverTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                bridgeTile =  new BridgeTile(this,bridgeStart, getPositionFromIndex(i), widths[gameMap[i]], bridgeWidth, null);
+                bridgeTile =  new BridgeTile(this, bridgeStart,
+                        getPositionFromIndex(i), widths[gameMap[i]], bridgeWidth, null);
                 break;
             case 2:
                 tile = new NewSafeTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
@@ -269,7 +280,7 @@ public class GameScreen extends AppCompatActivity {
             gameTiles[i] = tile;
             ConstraintLayout layout = findViewById(R.id.game_screen_layout);
             layout.addView(tile);
-            if(bridgeTile != null) {
+            if (bridgeTile != null) {
                 layout.addView(bridgeTile);
                 bridgeTiles[bridgeTileCount++] =  bridgeTile;
             }
@@ -335,7 +346,7 @@ public class GameScreen extends AppCompatActivity {
             gameCharacter.setBoundsDown(screenBottomPoint - widths[4],
                     widths[4], character.getHeight());
         }
-        if(!gameCharacter.isDead()) {
+        if (!gameCharacter.isDead()) {
             if (keycode == KeyEvent.KEYCODE_W) {
                 moveUp();
                 checkAndHandleCollisions(character, vehicleList);
@@ -407,9 +418,9 @@ public class GameScreen extends AppCompatActivity {
 
     //restart
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
-        if(mFlag.getFinishFlg() == true){
+        if (mFlag.getFinishFlg()) {
             finish();
         }
     }
