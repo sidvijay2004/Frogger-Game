@@ -24,6 +24,9 @@ public class GameScreen extends AppCompatActivity {
     private static ImageView vehicle2;
     private static ImageView vehicle3;
 
+    private static ImageView stick;
+    private static ImageView log1;
+    private static ImageView log2;
     private TextView difficultyAndNumLives;
 
     private int width;
@@ -91,6 +94,10 @@ public class GameScreen extends AppCompatActivity {
         vehicleList[1] = vehicle2;
         vehicleList[2] = vehicle3;
 
+        stick = (ImageView) findViewById(R.id.stick);
+        log1 = (ImageView) findViewById(R.id.log1);
+        log2 = (ImageView) findViewById(R.id.log2);
+
 
         String userName = getIntent().getStringExtra(ConfigPage.NAME_ID);
 
@@ -112,6 +119,9 @@ public class GameScreen extends AppCompatActivity {
 
         character.setZ(1);
         moveVehicles();
+
+        moveLogs();
+
         mFlag = new EndScreen.Flag();
 
 
@@ -331,6 +341,27 @@ public class GameScreen extends AppCompatActivity {
 
     }
 
+    private void moveLogs() {
+        ValueAnimator animator1 = ValueAnimator.ofFloat(SCREEN_WIDTH, -475);
+        moveLog(animator1, 7500, 175, log1);
+        log1.bringToFront();
+
+        ValueAnimator animator2 = ValueAnimator.ofFloat(-375, SCREEN_WIDTH);
+        moveLog(animator2, 8500, 550, stick);
+        stick.bringToFront();
+
+        ValueAnimator animator3 = ValueAnimator.ofFloat(SCREEN_WIDTH, -375);
+        moveLog(animator3, 6500, 750, log2);
+        log2.bringToFront();
+
+
+
+        animator1.start();
+        animator2.start();
+        animator3.start();
+    }
+
+
     @Override
     public boolean onKeyUp(int keycode, KeyEvent keyEvent) {
         //character top,
@@ -409,6 +440,29 @@ public class GameScreen extends AppCompatActivity {
                 vehicleObj.setPosX(x);
                 if (x < -vehicle.getWidth()) {
                     vehicle.setX(GameScreen.SCREEN_WIDTH);
+                }
+            }
+        });
+
+
+    }
+
+    public void moveLog(ValueAnimator valueAnimator,
+                            int duration,
+                            int position, ImageView log) {
+        valueAnimator.setDuration(duration);
+        valueAnimator.setRepeatMode(ValueAnimator.RESTART);
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
+
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+
+                log.setY(position);
+                float x = (float) animation.getAnimatedValue();
+                log.setX(x);
+                if (x < -log.getWidth()) {
+                    log.setX(GameScreen.SCREEN_WIDTH);
                 }
             }
         });
