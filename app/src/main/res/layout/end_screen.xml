@@ -7,7 +7,7 @@
     android:background="#8958E1">
 
     <TextView
-        android:id="@+id/gameOverTitle"
+        android:id="@+id/endScreenTitle"
         android:layout_width="390dp"
         android:layout_height="113dp"
         android:shadowRadius="@dimen/material_emphasis_disabled"
