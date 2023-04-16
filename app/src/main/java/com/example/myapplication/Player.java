@@ -73,10 +73,6 @@ public class Player implements Serializable {
         this.numLives = numLives;
     }
 
-    public void diePlayer() {
-        this.numLives -= 1;
-    }
-
     public String getDifficulty() {
         return difficulty;
     }
