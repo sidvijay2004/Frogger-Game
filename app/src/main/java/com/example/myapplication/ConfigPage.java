@@ -33,7 +33,7 @@ public class ConfigPage extends AppCompatActivity {
     public static final String NAME_ID = "name1";
 
     //finishing flag
-    public static EndScreen.Flag mFlag;
+    private static EndScreen.Flag mFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +58,14 @@ public class ConfigPage extends AppCompatActivity {
             charImageDisplay.setImageResource(R.drawable.character_three);
             break;
         }
+    }
+
+    public static EndScreen.Flag getmFlag() {
+        return mFlag;
+    }
+
+    public static void setmFlag(EndScreen.Flag mFlag) {
+        ConfigPage.mFlag  = mFlag;
     }
 
     public void updateDiffId() {
@@ -185,9 +193,9 @@ public class ConfigPage extends AppCompatActivity {
 
     //restart
     @Override
-    public void onRestart(){
+    public void onRestart() {
         super.onRestart();
-        if(mFlag.getFinishFlg() == true){
+        if (mFlag.getFinishFlg()) {
             finish();
         }
     }

@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+
 
 public class EndScreen extends AppCompatActivity {
     private Button restart;
@@ -16,17 +16,6 @@ public class EndScreen extends AppCompatActivity {
     private int winOrLose;
     private TextView finalScore;
     private int displayScore;
-
-    //finishing flag
-    public static class Flag{
-        private boolean finishflg;
-        public boolean getFinishFlg(){
-            return finishflg;
-        }
-        public void setFinishFlg(boolean flg){
-            finishflg = flg;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +50,24 @@ public class EndScreen extends AppCompatActivity {
         quitGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameScreen.mFlag.setFinishFlg(true);
-                ConfigPage.mFlag.setFinishFlg(true);
+                //GameScreen.mFlag.setFinishFlg(true);
+                GameScreen.getmFlag().setFinishFlg(true);
+                ConfigPage.getmFlag().setFinishFlg(true);
+                //ConfigPage.mFlag.setFinishFlg(true);
                 finish();
             }
         });
+    }
+
+    //finishing flag
+    public static class Flag {
+        private boolean finishflg;
+        public boolean getFinishFlg() {
+            return finishflg;
+        }
+        public void setFinishFlg(boolean flg) {
+            finishflg = flg;
+        }
     }
 
 

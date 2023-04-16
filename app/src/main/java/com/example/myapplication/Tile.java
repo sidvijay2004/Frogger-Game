@@ -3,16 +3,18 @@ package com.example.myapplication;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 
 public class Tile extends View {
-    private int laneWidth;
-    private int positionX;
-    private int positionY;
-    private Paint tilePaint;
+    protected int laneWidth;
+    protected int positionX;
+    protected int positionY;
+    protected Paint tilePaint;
+    protected Rect tileRect;
 
     public Tile(Context context, int color, int positionX,
                 int positionY, @Nullable AttributeSet attrs) {
@@ -37,6 +39,12 @@ public class Tile extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        this.tileRect = new Rect(positionX, positionY, getWidth(), positionY + laneWidth);
         canvas.drawRect(positionX, positionY, getWidth(), positionY + laneWidth, tilePaint);
+    }
+
+
+    public Rect getRect() {
+        return tileRect;
     }
 }

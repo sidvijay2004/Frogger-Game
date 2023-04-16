@@ -1,12 +1,12 @@
 package com.example.myapplication;
 
+
 public class Vehicle {
 
     private int posY;
     private float posX;
     private int id;
     private String size;
-
 
     public Vehicle(int id, int posY, String size) {
         this.id = id;
@@ -23,17 +23,5 @@ public class Vehicle {
     public int getPosY() {
         return posY;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

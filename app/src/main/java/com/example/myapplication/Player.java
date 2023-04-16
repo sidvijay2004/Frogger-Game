@@ -1,7 +1,15 @@
 package com.example.myapplication;
+import android.graphics.Rect;
+
 import java.io.Serializable;
 
 public class Player implements Serializable {
+    public void setNumLives(int numLives) {
+        this.numLives = numLives;
+    }
+
+    private int numLives;
+
     private int posX;
     private int posY;
 
@@ -14,13 +22,44 @@ public class Player implements Serializable {
 
 
     private String difficulty;
-    private int numLives;
     private int score = 0;
     private int minYPos = 20000;
+
 
     private Vehicle vehicle1;
     private Vehicle vehicle2;
     private Vehicle vehicle3;
+    private boolean inCollision;
+    private boolean isDead = false;
+
+    public Rect getPlayerRect() {
+        return playerRect;
+    }
+
+    public void setPlayerRect(Rect playerRect) {
+        this.playerRect = new Rect(playerRect);
+    }
+
+    private Rect playerRect;
+
+    public int getStartPosX() {
+        return startPosX;
+    }
+
+    public void setStartPosX(int startPosX) {
+        this.startPosX = startPosX;
+    }
+
+    public int getStartPosY() {
+        return startPosY;
+    }
+
+    public void setStartPosY(int startPosY) {
+        this.startPosY = startPosY;
+    }
+
+    private int startPosX;
+    private int startPosY;
 
     public void setDifficulty(String difficulty, int numLives) {
         this.difficulty = difficulty;
@@ -40,6 +79,13 @@ public class Player implements Serializable {
     }
     public int getNumLives() {
         return numLives;
+    }
+
+    public void decrementLives() {
+        this.numLives--;
+        if (numLives < 0) {
+            setDead();
+        }
     }
 
     public void setImageResourceId(int id) {
@@ -66,6 +112,9 @@ public class Player implements Serializable {
     }
 
     public void moveLeft() {
+        if (isDead) {
+            return;
+        }
         posX -= 10;
         if (posX < boundsLeft) {
             posX = boundsLeft;
@@ -73,41 +122,57 @@ public class Player implements Serializable {
     }
 
     public void moveRight() {
+        if (isDead) {
+            return;
+        }
         posX += 10;
         if (posX > boundsRight) {
             posX = boundsRight;
         }
     }
 
+    public void setDead() {
+        isDead = true;
+    }
+    public boolean isDead() {
+        return isDead;
+    }
     public void moveUp(Vehicle v1, Vehicle v2, Vehicle v3) {
+        if (isDead) {
+            return;
+        }
+
         posY -= 10;
         if (posY < boundsUp) {
             posY = boundsUp;
         }
+        if (v1 != null && v2 != null && v3 != null) {
+            double height1 = v1.getPosY();
+            double height2 = v2.getPosY();
+            double height3 = v3.getPosY();
 
-        double height1 = v1.getPosY();
-        double height2 = v2.getPosY();
-        double height3 = v3.getPosY();
-
-        if (assertEqualsDouble(posY, height1) && posY <= minYPos) {
-            minYPos = posY;
-            score += 20;
-        } else if (assertEqualsDouble(posY, height2) && posY <= minYPos) {
-            minYPos = posY;
-            score += 40;
-        } else if (assertEqualsDouble(posY, height3) && posY <= minYPos) {
-            minYPos = posY;
-            score += 100;
-        } else {
-            if (posY <= minYPos) {
+            if (assertEqualsDouble(posY, height1) && posY < minYPos) {
                 minYPos = posY;
-                score += 5;
+                score += 20;
+            } else if (assertEqualsDouble(posY, height2) && posY < minYPos) {
+                minYPos = posY;
+                score += 40;
+            } else if (assertEqualsDouble(posY, height3) && posY < minYPos) {
+                minYPos = posY;
+                score += 100;
+            } else {
+                if (posY < minYPos) {
+                    minYPos = posY;
+                    score += 5;
+                }
             }
         }
-
     }
 
     public void moveDown() {
+        if (isDead) {
+            return;
+        }
         posY += 10;
         if (posY > boundsDown) {
             posY = boundsDown;
@@ -172,17 +237,45 @@ public class Player implements Serializable {
         return false;
 
     }
+    public boolean isInCollision() {
+        return inCollision;
+    }
+
+    public void setInCollision(boolean inCollision) {
+        this.inCollision = inCollision;
+    }
 
     public boolean isGoal(int riverAndGoalTileBorderPos) {
         if (this.getPosY() < riverAndGoalTileBorderPos) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public boolean isPlayerDied() {
         return (numLives <= 0);
     }
+    public boolean isCollidingWithPlayer(Rect collisionRect) {
+        playerRect.left = posX;
+        playerRect.right = posX + playerRect.width();
+        playerRect.top = posY;
+        playerRect.bottom = posY + playerRect.height();
+        if (playerRect.intersect(collisionRect)) {
+            return true;
+        }
+        return false;
+    }
+    public void riverCollisionPenalty() {
+        score /= 3;
+    }
+
+    public void addVehicleCollisionPenalty() {
+        score /= 2;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
 
 }

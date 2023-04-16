@@ -88,7 +88,7 @@ public class Sprint3Tests {
         player.moveUp(v1, v2, v3);
         player.moveDown();
         player.moveDown();
-        assertEquals(10, player.getScore());
+        assertEquals(5, player.getScore());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class Sprint3Tests {
         Vehicle v1 = new Vehicle(  R.id.vehicle1, 100, "Medium");
         Vehicle v2 = new Vehicle(  R.id.vehicle2, 200, "Big");
         Vehicle v3 = new Vehicle(  R.id.vehicle3, 300, "Small");
-        player.setPosY(0);
+        player.setPosY(10000);
         player.moveUp(v1, v2, v3);
         player.moveUp(v1, v2, v3);
 
