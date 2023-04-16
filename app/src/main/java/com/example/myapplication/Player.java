@@ -4,14 +4,10 @@ import android.graphics.Rect;
 import java.io.Serializable;
 
 public class Player implements Serializable {
-    public void setNumLives(int numLives) {
-        this.numLives = numLives;
-    }
-
     private int numLives;
 
-    private int posX;
-    private int posY;
+    private float posX;
+    private float posY;
 
     private int boundsLeft;
     private int boundsRight;
@@ -20,6 +16,7 @@ public class Player implements Serializable {
 
     private int imageResource;
 
+    private boolean playerOnLog;
 
     private String difficulty;
     private int score = 0;
@@ -60,6 +57,15 @@ public class Player implements Serializable {
 
     private int startPosX;
     private int startPosY;
+
+
+    public boolean isPlayerOnLog() {
+        return playerOnLog;
+    }
+
+    public void setPlayerOnLog(boolean playerOnLog) {
+        this.playerOnLog = playerOnLog;
+    }
 
     public void setDifficulty(String difficulty, int numLives) {
         this.difficulty = difficulty;
@@ -115,7 +121,7 @@ public class Player implements Serializable {
         if (isDead) {
             return;
         }
-        posX -= 10;
+        posX -= 50.0f;
         if (posX < boundsLeft) {
             posX = boundsLeft;
         }
@@ -125,10 +131,14 @@ public class Player implements Serializable {
         if (isDead) {
             return;
         }
-        posX += 10;
+        posX += 50.0f;
         if (posX > boundsRight) {
             posX = boundsRight;
         }
+    }
+
+    public boolean isPlayerTouchingSideBoundaries() {
+        return (posX > boundsRight) || (posX < boundsLeft);
     }
 
     public void setDead() {
@@ -137,12 +147,13 @@ public class Player implements Serializable {
     public boolean isDead() {
         return isDead;
     }
+
     public void moveUp(Vehicle v1, Vehicle v2, Vehicle v3) {
         if (isDead) {
             return;
         }
 
-        posY -= 10;
+        posY -= 50.0f;
         if (posY < boundsUp) {
             posY = boundsUp;
         }
@@ -152,17 +163,17 @@ public class Player implements Serializable {
             double height3 = v3.getPosY();
 
             if (assertEqualsDouble(posY, height1) && posY < minYPos) {
-                minYPos = posY;
+                minYPos = (int)posY;
                 score += 20;
             } else if (assertEqualsDouble(posY, height2) && posY < minYPos) {
-                minYPos = posY;
+                minYPos = (int)posY;
                 score += 40;
             } else if (assertEqualsDouble(posY, height3) && posY < minYPos) {
-                minYPos = posY;
+                minYPos = (int)posY;
                 score += 100;
             } else {
                 if (posY < minYPos) {
-                    minYPos = posY;
+                    minYPos = (int)posY;
                     score += 5;
                 }
             }
@@ -173,29 +184,29 @@ public class Player implements Serializable {
         if (isDead) {
             return;
         }
-        posY += 10;
+        posY += 50.0f;
         if (posY > boundsDown) {
             posY = boundsDown;
         }
 
     }
 
-    public void setPosition(int posX, int posY) {
+    public void setPosition(float posX, float posY) {
         this.posX = posX;
         this.posY = posY;
     }
-    public void setPosX(int newPosX) {
+    public void setPosX(float newPosX) {
         posX = newPosX;
     }
-    public void setPosY(int newPosY) {
+    public void setPosY(float newPosY) {
         posY = newPosY;
     }
 
-    public int getPosX() {
+    public float getPosX() {
         return posX;
     }
 
-    public int getPosY() {
+    public float getPosY() {
         return posY;
     }
 
@@ -256,10 +267,10 @@ public class Player implements Serializable {
         return (numLives <= 0);
     }
     public boolean isCollidingWithPlayer(Rect collisionRect) {
-        playerRect.left = posX;
-        playerRect.right = posX + playerRect.width();
-        playerRect.top = posY;
-        playerRect.bottom = posY + playerRect.height();
+        playerRect.left = (int)posX;
+        playerRect.right = (int)posX + playerRect.width();
+        playerRect.top = (int)posY;
+        playerRect.bottom = (int)posY + playerRect.height();
         if (playerRect.intersect(collisionRect)) {
             return true;
         }
@@ -276,6 +287,5 @@ public class Player implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
-
 
 }

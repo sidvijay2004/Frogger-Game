@@ -59,11 +59,15 @@ public class GameScreen extends AppCompatActivity {
     public static final int SCREEN_WIDTH = Resources.getSystem().getDisplayMetrics().widthPixels;
     private int updateTimePeriod = 300;
 
-    private int bridgeWidth = 400;
-    private int bridgeStart = 100;
+    private int bridgeWidth = 0;
+    private int bridgeStart = 50;
+
+
+    // Which log is player standing on.
+    private ImageView logBoat = null;
+
 
     private boolean endGameScreenDisplayed = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +141,19 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public void checkAndHandleCollisions(ImageView character, ImageView[] vehicles) {
+        //Check if player is inside the log. If yes, move him along with the log.
+        if(checkLogCollision()) {
+            logBoat = checkLogOverlap();
+            gameCharacter.setPlayerOnLog(true);
+            if(gameCharacter.isPlayerTouchingSideBoundaries()) {
+                gameCharacter.riverCollisionPenalty();
+                killCharacter();
+            }
+            return;
+        }
+        gameCharacter.setPlayerOnLog(false);
+        logBoat = null;
+
         checkRiverCollision(character);
         if (gameCharacter.isInCollision()) {
             gameCharacter.riverCollisionPenalty();
@@ -174,6 +191,64 @@ public class GameScreen extends AppCompatActivity {
         GameScreen.mFlag = mFlag;
     }
 
+    public ImageView checkLogOverlap() {
+        if (character == null) {
+            return null;
+        }
+        Rect characterRect = new Rect();
+        character.getHitRect(characterRect);
+        //log 1
+        Rect logRect = new Rect();
+        log1.getHitRect(logRect);
+        if(logRect.contains(characterRect)) {
+            return log1;
+        }
+
+
+        //log 2
+        log2.getHitRect(logRect);
+        if(logRect.contains(characterRect)) {
+            return log2;
+        }
+
+        //Stick
+        stick.getHitRect(logRect);
+        if(logRect.contains(characterRect)) {
+            return stick;
+        }
+        return null;
+    }
+
+    public boolean checkLogCollision() {
+        if (character == null) {
+            return false;
+        }
+        Rect characterRect = new Rect();
+        character.getHitRect(characterRect);
+        //log 1
+        Rect logRect = new Rect();
+        log1.getHitRect(logRect);
+        if(logRect.intersect(characterRect)) {
+            return true;
+        }
+
+
+        //log 2
+        log2.getHitRect(logRect);
+        if(logRect.intersect(characterRect)) {
+            return true;
+        }
+
+        //Stick
+        stick.getHitRect(logRect);
+        if(logRect.intersect(characterRect)) {
+            return true;
+        }
+        return false;
+    }
+
+
+
     public boolean checkRiverCollision(ImageView character) {
         if (character != null) {
             Rect characterRect = new Rect();
@@ -182,15 +257,7 @@ public class GameScreen extends AppCompatActivity {
                 if (gameMap[i] == 1) {
                     boolean onBridge = false;
                     Rect riverTileRect = gameTiles[i].getRect();
-                    for (int j = 0; j < bridgeTiles.length; j++) {
-                        if (gameCharacter.isCollidingWithPlayer(bridgeTiles[j].getRect())) {
-                            onBridge = true;
-                            break;
-                        }
-                    }
-                    if (onBridge) {
-                        break;
-                    }
+
                     if (gameCharacter.isCollidingWithPlayer(riverTileRect)) {
                         gameCharacter.setInCollision(true);
                         return true;
@@ -200,8 +267,6 @@ public class GameScreen extends AppCompatActivity {
         }
         return false;
     }
-
-
 
     public boolean checkVehicleCollision(ImageView character, ImageView[] vehicles) {
         if (character != null) {
@@ -342,16 +407,16 @@ public class GameScreen extends AppCompatActivity {
     }
 
     private void moveLogs() {
-        ValueAnimator animator1 = ValueAnimator.ofFloat(SCREEN_WIDTH, -475);
-        moveLog(animator1, 7500, 175, log1);
+        ValueAnimator animator1 = ValueAnimator.ofFloat(SCREEN_WIDTH, -700);
+        moveLog(animator1, 20000, getPositionFromIndex(1), log1);
         log1.bringToFront();
 
-        ValueAnimator animator2 = ValueAnimator.ofFloat(-375, SCREEN_WIDTH);
-        moveLog(animator2, 8500, 550, stick);
+        ValueAnimator animator2 = ValueAnimator.ofFloat(-600, SCREEN_WIDTH);
+        moveLog(animator2, 15000, getPositionFromIndex(2), stick);
         stick.bringToFront();
 
-        ValueAnimator animator3 = ValueAnimator.ofFloat(SCREEN_WIDTH, -375);
-        moveLog(animator3, 6500, 750, log2);
+        ValueAnimator animator3 = ValueAnimator.ofFloat(SCREEN_WIDTH, -400);
+        moveLog(animator3, 13000, getPositionFromIndex(3), log2);
         log2.bringToFront();
 
 
@@ -466,9 +531,17 @@ public class GameScreen extends AppCompatActivity {
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-
+                float prevX = log.getX();
                 log.setY(position);
                 float x = (float) animation.getAnimatedValue();
+
+                float diff = x - prevX;
+
+                if(log == logBoat) {
+                    character.setX(character.getX() + diff);
+                    gameCharacter.setPosX(character.getX());
+                }
+
                 log.setX(x);
                 if (x < -log.getWidth()) {
                     log.setX(GameScreen.SCREEN_WIDTH);
