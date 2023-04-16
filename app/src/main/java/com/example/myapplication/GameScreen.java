@@ -174,11 +174,12 @@ public class GameScreen extends AppCompatActivity {
                 || gameCharacter.isGoal(getPositionFromIndex(0) + widths[0] - 50))
                 && !endGameScreenDisplayed) {
             endGameScreenDisplayed = true;
+            gameCharacter.setDead();
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
+            //game over no bonus
+            intentScore.putExtra("WINORLOSE", 0);
             intentScore.putExtra("SAVED_SCORE", score);
             startActivity(intentScore);
-            finish();
-            gameCharacter.setDead();
         }
 
     }

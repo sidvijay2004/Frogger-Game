@@ -72,10 +72,6 @@ public class Player implements Serializable {
         this.numLives = numLives;
     }
 
-    public void setNumLives(int numLives) {
-        this.numLives = numLives;
-    }
-
     public void diePlayer() {
         this.numLives -= 1;
     }
