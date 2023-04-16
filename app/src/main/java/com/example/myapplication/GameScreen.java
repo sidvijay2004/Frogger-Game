@@ -405,6 +405,15 @@ public class GameScreen extends AppCompatActivity {
         score = gameCharacter.getScore();
         TextView scoreView = findViewById(R.id.scoreText);
         scoreView.setText("Score: " + score);
+        //Goal
+        if (gameCharacter.isGoal(getPositionFromIndex(1))) {
+            Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
+            //win bonus score
+            score += 1000;
+            intentScore.putExtra("WINORLOSE", 1);
+            intentScore.putExtra("SAVED_SCORE", score);
+            startActivity(intentScore);
+        }
     }
     public void moveDown() {
         gameCharacter.moveDown();

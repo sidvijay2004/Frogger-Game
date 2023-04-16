@@ -66,6 +66,14 @@ public class Player implements Serializable {
         this.numLives = numLives;
     }
 
+    public void setNumLives(int numLives) {
+        this.numLives = numLives;
+    }
+
+    public void diePlayer() {
+        this.numLives -= 1;
+    }
+
     public String getDifficulty() {
         return difficulty;
     }
@@ -244,6 +252,9 @@ public class Player implements Serializable {
         return false;
     }
 
+    public boolean isPlayerDied() {
+        return (numLives <= 0);
+    }
     public boolean isCollidingWithPlayer(Rect collisionRect) {
         playerRect.left = posX;
         playerRect.right = posX + playerRect.width();
@@ -265,7 +276,6 @@ public class Player implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
-
 
 
 }
