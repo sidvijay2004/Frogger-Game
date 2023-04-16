@@ -58,6 +58,7 @@ public class Player implements Serializable {
     private int startPosX;
     private int startPosY;
 
+    private boolean passedVehicle1 = false, passedVehicle2 = false, passedVehicle3 = false;
 
     public boolean isPlayerOnLog() {
         return playerOnLog;
@@ -89,6 +90,10 @@ public class Player implements Serializable {
             setDead();
         }
     }
+    public void setNumLives(int numLives) {
+        this.numLives = numLives;
+    }
+
 
     public void setImageResourceId(int id) {
         imageResource = id;
@@ -157,16 +162,21 @@ public class Player implements Serializable {
             double height1 = v1.getPosY();
             double height2 = v2.getPosY();
             double height3 = v3.getPosY();
+            System.out.println(posY + " " + height1 + " " +  height2 + " " + height3);
+            if (assertLessThan(posY, height1) && posY < minYPos && !passedVehicle1) {
+                minYPos = (int)posY;
+                score += 500;
+                passedVehicle1 = true;
+            } else if (assertLessThan(posY, height2) && posY < minYPos && !passedVehicle2) {
+                minYPos = (int)posY;
+                score += 1000;
+                passedVehicle2 = true;
 
-            if (assertEqualsDouble(posY, height1) && posY < minYPos) {
+            } else if (assertLessThan(posY, height3) && posY < minYPos && !passedVehicle3) {
                 minYPos = (int)posY;
-                score += 20;
-            } else if (assertEqualsDouble(posY, height2) && posY < minYPos) {
-                minYPos = (int)posY;
-                score += 40;
-            } else if (assertEqualsDouble(posY, height3) && posY < minYPos) {
-                minYPos = (int)posY;
-                score += 100;
+                score += 2000;
+                passedVehicle3 = true;
+
             } else {
                 if (posY < minYPos) {
                     minYPos = (int)posY;
@@ -237,8 +247,8 @@ public class Player implements Serializable {
         return vehicle3;
     }
 
-    public boolean assertEqualsDouble(double one, double two) {
-        if (one <= two + 5 && one >= two - 5) {
+    public boolean assertLessThan(double position, double boundary) {
+        if(position < boundary) {
             return true;
         }
         return false;
