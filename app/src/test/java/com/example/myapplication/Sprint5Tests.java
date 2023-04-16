@@ -12,9 +12,9 @@ public class Sprint5Tests {
         int riverBorder = 500;
         Player player = new Player();
         player.setNumLives(3);
-        player.diePlayer();
-        player.diePlayer();
-        player.diePlayer();
+        player.decrementLives();
+        player.decrementLives();
+        player.decrementLives();
         assertEquals(true, player.isPlayerDied());
     }
 
@@ -23,8 +23,8 @@ public class Sprint5Tests {
         int riverBorder = 500;
         Player player = new Player();
         player.setNumLives(3);
-        player.diePlayer();
-        player.diePlayer();
+        player.decrementLives();
+        player.decrementLives();
         assertEquals(false, player.isPlayerDied());
     }
 
