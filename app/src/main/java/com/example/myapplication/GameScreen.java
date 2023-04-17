@@ -168,7 +168,7 @@ public class GameScreen extends AppCompatActivity {
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
             //game over no bonus
             intentScore.putExtra("WINORLOSE", 0);
-            intentScore.putExtra("SAVED_SCORE", score);
+            intentScore.putExtra("SAVED_SCORE", gameCharacter.getScore());
             startActivity(intentScore);
         }
 
@@ -464,7 +464,7 @@ public class GameScreen extends AppCompatActivity {
             //score += 5000;
             gameCharacter.setGameWinStatus(1);
             intentScore.putExtra("WINORLOSE", 1);
-            intentScore.putExtra("SAVED_SCORE", score);
+            intentScore.putExtra("SAVED_SCORE", gameCharacter.getScore());
             startActivity(intentScore);
         }
     }
