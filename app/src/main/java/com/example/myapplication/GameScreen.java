@@ -73,10 +73,6 @@ public class GameScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
-
-
-
-
         gameCharacter = (Player) getIntent().getSerializableExtra("playerObject");
         Rect characterRect = new Rect();
         gameScreenName = (TextView) findViewById(R.id.nameGameScreen);
@@ -102,10 +98,7 @@ public class GameScreen extends AppCompatActivity {
         log1 = (ImageView) findViewById(R.id.log1);
         log2 = (ImageView) findViewById(R.id.log2);
 
-
         String userName = getIntent().getStringExtra(ConfigPage.NAME_ID);
-
-
         String difficultyLevel = gameCharacter.getDifficulty();
         int numLives = gameCharacter.getNumLives();
 
@@ -117,9 +110,6 @@ public class GameScreen extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         width = displayMetrics.widthPixels;
-        // gameCharacter.setPosition((int) character.getX(), (int) character.getY());
-        // gameCharacter.setStartPosX(gameCharacter.getPosX());
-        // gameCharacter.setStartPosY(gameCharacter.getPosY());
 
         character.setZ(1);
         moveVehicles();
@@ -276,10 +266,6 @@ public class GameScreen extends AppCompatActivity {
 
                     Rect vehicleRect = new Rect();
                     vehicle.getHitRect(vehicleRect);
-
-
-                    //System.out.println("characterRect: " + characterRect.toShortString());
-                    //System.out.println("vehicleRect: " + vehicleRect.toShortString());
                     if (gameCharacter.isCollidingWithPlayer(vehicleRect)) {
                         gameCharacter.setInCollision(true);
                         return true; // Collision detected
@@ -477,7 +463,6 @@ public class GameScreen extends AppCompatActivity {
             //win bonus score
             //score += 5000;
             gameCharacter.setGameWinStatus(1);
-            //gameCharacter.setReachedGoal(true);
             intentScore.putExtra("WINORLOSE", 1);
             intentScore.putExtra("SAVED_SCORE", score);
             startActivity(intentScore);
