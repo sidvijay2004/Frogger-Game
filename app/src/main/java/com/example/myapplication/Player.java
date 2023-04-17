@@ -286,6 +286,7 @@ public class Player implements Serializable {
     public boolean isGoal(int riverAndGoalTileBorderPos) {
         if (this.getPosY() < riverAndGoalTileBorderPos) {
             gameWinStatus = 1;
+            score += 5000;
             return true;
         }
         return false;

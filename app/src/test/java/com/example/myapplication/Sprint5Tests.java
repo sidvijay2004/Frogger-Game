@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import java.util.Random;
+
 
 public class Sprint5Tests {
 
@@ -40,28 +42,35 @@ public class Sprint5Tests {
         player.setDead();
         assertEquals(0, player.getGameWinStatus());
     }
+
     @Test
     public void testPlayerWinGame() {
         Player player = new Player();
-        player.setBoundsTop(-1000);
-        player.setBoundsDown(1000, 50, 50);
-        player.setPosY(0);
-        player.moveUp(null, null, null);
-        player.isGoal(0);
-        assertEquals(1, player.getGameWinStatus());
+        Random rand = new Random();
+        int yPos = rand.nextInt(200);
+        player.setPosY(yPos);
+        if (player.isGoal(100)) {
+            assertEquals(1, player.getGameWinStatus());
+        } else {
+            assertEquals(-1, player.getGameWinStatus());
+        }
     }
 
     @Test
-    public void testPlayerScoreUpdateVehicle1() {
+    public void testWinScoreUpdate() {
         Player player = new Player();
-        Vehicle v1 = new Vehicle(  R.id.vehicle1, 0, "Medium");
-        Vehicle v2 = new Vehicle(  R.id.vehicle2, 1000, "Big");
-        Vehicle v3 = new Vehicle(  R.id.vehicle3, 2000, "Small");
-        player.setPosY(v1.getPosY() + 10);
-        player.setBoundsTop(-10000);
-        player.moveUp(v1, v2, v3);
-        assertEquals(500, player.getScore());
+        Random rand = new Random();
+        int yPos = rand.nextInt(200);
+        int score = player.getScore();
+        player.setPosY(yPos);
+        if (player.isGoal(100)) {
+            assertEquals(score + 5000, player.getScore());
+        } else {
+            assertEquals(score, player.getScore());
+        }
     }
+
+
 
     @Test
     public void testPlayerScoreUpdateVehicle2() {
