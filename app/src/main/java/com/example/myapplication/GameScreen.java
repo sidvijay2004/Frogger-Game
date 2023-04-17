@@ -475,7 +475,7 @@ public class GameScreen extends AppCompatActivity {
         if (gameCharacter.isGoal(getPositionFromIndex(1))) {
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
             //win bonus score
-            score += 1000;
+            score += 5000;
             gameCharacter.setGameWinStatus(1);
             //gameCharacter.setReachedGoal(true);
             intentScore.putExtra("WINORLOSE", 1);
