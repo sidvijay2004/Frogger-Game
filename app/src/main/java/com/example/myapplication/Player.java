@@ -179,6 +179,7 @@ public class Player implements Serializable {
         if (posY < boundsUp) {
             posY = boundsUp;
         }
+
         if (v1 != null && v2 != null && v3 != null) {
             double height1 = v1.getPosY();
             double height2 = v2.getPosY();
