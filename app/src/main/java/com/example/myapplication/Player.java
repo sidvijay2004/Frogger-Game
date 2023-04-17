@@ -31,12 +31,6 @@ public class Player implements Serializable {
 
     private int gameWinStatus = -1;
 
-    private boolean reachedGoal = false;
-
-    public Rect getPlayerRect() {
-        return playerRect;
-    }
-
     public void setPlayerRect(Rect playerRect) {
         this.playerRect = new Rect(playerRect);
     }
@@ -45,13 +39,6 @@ public class Player implements Serializable {
         return gameWinStatus;
     }
 
-    public boolean getReachedGoal() {
-        return reachedGoal;
-    }
-
-    public void setReachedGoal(boolean b) {
-        reachedGoal = b;
-    }
 
     public void setGameWinStatus(int val) {
         gameWinStatus = val;
