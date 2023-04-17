@@ -183,7 +183,6 @@ public class Player implements Serializable {
             double height1 = v1.getPosY();
             double height2 = v2.getPosY();
             double height3 = v3.getPosY();
-            System.out.println(posY + " " + height1 + " " +  height2 + " " + height3);
             if (assertLessThan(posY, height1) && posY < minYPos && !passedVehicle1) {
                 minYPos = (int)posY;
                 score += 500;
