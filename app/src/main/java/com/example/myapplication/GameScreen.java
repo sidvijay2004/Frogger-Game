@@ -326,32 +326,32 @@ public class GameScreen extends AppCompatActivity {
             Tile bridgeTile = null;
             //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
             switch (gameMap[i]) {
-            case 0:
-                tile = new GoalTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                gameCharacter.setBoundsTop(getPositionFromIndex(i));
-                break;
-            case 1:
-                tile = new RiverTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                bridgeTile =  new BridgeTile(this, bridgeStart,
-                        getPositionFromIndex(i), widths[gameMap[i]], bridgeWidth, null);
-                break;
-            case 2:
-                tile = new NewSafeTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                break;
-            case 3:
-                tile = new RoadTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                break;
-            case 4:
-                tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                int startPositionX = SCREEN_WIDTH / 2;
-                int startPositionY = getPositionFromIndex(i) + 50;
-                gameCharacter.setStartPosX(startPositionX);
-                gameCharacter.setStartPosY(startPositionY);
-                gameCharacter.setPosition(startPositionX, startPositionY);
+                case 0:
+                    tile = new GoalTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                    gameCharacter.setBoundsTop(getPositionFromIndex(i));
+                    break;
+                case 1:
+                    tile = new RiverTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                    bridgeTile =  new BridgeTile(this, bridgeStart,
+                            getPositionFromIndex(i), widths[gameMap[i]], bridgeWidth, null);
+                    break;
+                case 2:
+                    tile = new NewSafeTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                    break;
+                case 3:
+                    tile = new RoadTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                    break;
+                case 4:
+                    tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                    int startPositionX = SCREEN_WIDTH / 2;
+                    int startPositionY = getPositionFromIndex(i) + 50;
+                    gameCharacter.setStartPosX(startPositionX);
+                    gameCharacter.setStartPosY(startPositionY);
+                    gameCharacter.setPosition(startPositionX, startPositionY);
 
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
             }
             gameTiles[i] = tile;
             ConstraintLayout layout = findViewById(R.id.game_screen_layout);
@@ -476,6 +476,8 @@ public class GameScreen extends AppCompatActivity {
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
             //win bonus score
             score += 1000;
+            gameCharacter.setGameWinStatus(1);
+            //gameCharacter.setReachedGoal(true);
             intentScore.putExtra("WINORLOSE", 1);
             intentScore.putExtra("SAVED_SCORE", score);
             startActivity(intentScore);
@@ -523,8 +525,8 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public void moveLog(ValueAnimator valueAnimator,
-                            int duration,
-                            int position, ImageView log) {
+                        int duration,
+                        int position, ImageView log) {
         valueAnimator.setDuration(duration);
         valueAnimator.setRepeatMode(ValueAnimator.RESTART);
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);

@@ -29,12 +29,32 @@ public class Player implements Serializable {
     private boolean inCollision;
     private boolean isDead = false;
 
+    private int gameWinStatus = -1;
+
+    private boolean reachedGoal = false;
+
     public Rect getPlayerRect() {
         return playerRect;
     }
 
     public void setPlayerRect(Rect playerRect) {
         this.playerRect = new Rect(playerRect);
+    }
+
+    public int getGameWinStatus() {
+        return gameWinStatus;
+    }
+
+    public boolean getReachedGoal() {
+        return reachedGoal;
+    }
+
+    public void setReachedGoal(boolean b) {
+        reachedGoal = b;
+    }
+
+    public void setGameWinStatus(int val) {
+        gameWinStatus = val;
     }
 
     private Rect playerRect;
@@ -71,6 +91,10 @@ public class Player implements Serializable {
     public void setDifficulty(String difficulty, int numLives) {
         this.difficulty = difficulty;
         this.numLives = numLives;
+    }
+
+    public void diePlayer() {
+        this.numLives -= 1;
     }
 
     public String getDifficulty() {
@@ -140,6 +164,7 @@ public class Player implements Serializable {
 
     public void setDead() {
         isDead = true;
+        gameWinStatus = 0; // could have code smell here
     }
     public boolean isDead() {
         return isDead;
@@ -260,6 +285,7 @@ public class Player implements Serializable {
 
     public boolean isGoal(int riverAndGoalTileBorderPos) {
         if (this.getPosY() < riverAndGoalTileBorderPos) {
+            gameWinStatus = 1;
             return true;
         }
         return false;
@@ -289,5 +315,7 @@ public class Player implements Serializable {
     public void setScore(int score) {
         this.score = score;
     }
+
+
 
 }
