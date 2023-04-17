@@ -40,7 +40,6 @@ public class Sprint5Tests {
         player.setDead();
         assertEquals(0, player.getGameWinStatus());
     }
-
     @Test
     public void testPlayerWinGame() {
         Player player = new Player();
