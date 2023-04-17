@@ -78,7 +78,9 @@ public class Player implements Serializable {
     private int startPosX;
     private int startPosY;
 
-    private boolean passedVehicle1 = false, passedVehicle2 = false, passedVehicle3 = false;
+    private boolean passedVehicle1 = false;
+    private boolean passedVehicle2 = false;
+    private boolean passedVehicle3 = false;
 
     public boolean isPlayerOnLog() {
         return playerOnLog;
@@ -185,22 +187,22 @@ public class Player implements Serializable {
             double height2 = v2.getPosY();
             double height3 = v3.getPosY();
             if (assertLessThan(posY, height1) && posY < minYPos && !passedVehicle1) {
-                minYPos = (int)posY;
+                minYPos = (int) posY;
                 score += 500;
                 passedVehicle1 = true;
             } else if (assertLessThan(posY, height2) && posY < minYPos && !passedVehicle2) {
-                minYPos = (int)posY;
+                minYPos = (int) posY;
                 score += 1000;
                 passedVehicle2 = true;
 
             } else if (assertLessThan(posY, height3) && posY < minYPos && !passedVehicle3) {
-                minYPos = (int)posY;
+                minYPos = (int) posY;
                 score += 2000;
                 passedVehicle3 = true;
 
             } else {
                 if (posY < minYPos) {
-                    minYPos = (int)posY;
+                    minYPos = (int) posY;
                     score += 5;
                 }
             }
@@ -269,7 +271,7 @@ public class Player implements Serializable {
     }
 
     public boolean assertLessThan(double position, double boundary) {
-        if(position < boundary) {
+        if (position < boundary) {
             return true;
         }
         return false;
@@ -286,6 +288,7 @@ public class Player implements Serializable {
     public boolean isGoal(int riverAndGoalTileBorderPos) {
         if (this.getPosY() < riverAndGoalTileBorderPos) {
             gameWinStatus = 1;
+            score += 5000;
             return true;
         }
         return false;
@@ -295,10 +298,10 @@ public class Player implements Serializable {
         return (numLives <= 0);
     }
     public boolean isCollidingWithPlayer(Rect collisionRect) {
-        playerRect.left = (int)posX;
-        playerRect.right = (int)posX + playerRect.width();
-        playerRect.top = (int)posY;
-        playerRect.bottom = (int)posY + playerRect.height();
+        playerRect.left = (int) posX;
+        playerRect.right = (int) posX + playerRect.width();
+        playerRect.top = (int) posY;
+        playerRect.bottom = (int) posY + playerRect.height();
         if (playerRect.intersect(collisionRect)) {
             return true;
         }

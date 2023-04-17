@@ -132,10 +132,10 @@ public class GameScreen extends AppCompatActivity {
 
     public void checkAndHandleCollisions(ImageView character, ImageView[] vehicles) {
         //Check if player is inside the log. If yes, move him along with the log.
-        if(checkLogCollision()) {
+        if (checkLogCollision()) {
             logBoat = checkLogOverlap();
             gameCharacter.setPlayerOnLog(true);
-            if(gameCharacter.isPlayerTouchingSideBoundaries()) {
+            if (gameCharacter.isPlayerTouchingSideBoundaries()) {
                 gameCharacter.riverCollisionPenalty();
                 killCharacter();
             }
@@ -191,20 +191,20 @@ public class GameScreen extends AppCompatActivity {
         //log 1
         Rect logRect = new Rect();
         log1.getHitRect(logRect);
-        if(logRect.contains(characterRect)) {
+        if (logRect.contains(characterRect)) {
             return log1;
         }
 
 
         //log 2
         log2.getHitRect(logRect);
-        if(logRect.contains(characterRect)) {
+        if (logRect.contains(characterRect)) {
             return log2;
         }
 
         //Stick
         stick.getHitRect(logRect);
-        if(logRect.contains(characterRect)) {
+        if (logRect.contains(characterRect)) {
             return stick;
         }
         return null;
@@ -219,20 +219,20 @@ public class GameScreen extends AppCompatActivity {
         //log 1
         Rect logRect = new Rect();
         log1.getHitRect(logRect);
-        if(logRect.intersect(characterRect)) {
+        if (logRect.intersect(characterRect)) {
             return true;
         }
 
 
         //log 2
         log2.getHitRect(logRect);
-        if(logRect.intersect(characterRect)) {
+        if (logRect.intersect(characterRect)) {
             return true;
         }
 
         //Stick
         stick.getHitRect(logRect);
-        if(logRect.intersect(characterRect)) {
+        if (logRect.intersect(characterRect)) {
             return true;
         }
         return false;
@@ -312,32 +312,32 @@ public class GameScreen extends AppCompatActivity {
             Tile bridgeTile = null;
             //0: Goal Tile, 1: River tile, 2: Safe tile, 3: Road Tile, 4: Start Tile
             switch (gameMap[i]) {
-                case 0:
-                    tile = new GoalTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                    gameCharacter.setBoundsTop(getPositionFromIndex(i));
-                    break;
-                case 1:
-                    tile = new RiverTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                    bridgeTile =  new BridgeTile(this, bridgeStart,
-                            getPositionFromIndex(i), widths[gameMap[i]], bridgeWidth, null);
-                    break;
-                case 2:
-                    tile = new NewSafeTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                    break;
-                case 3:
-                    tile = new RoadTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                    break;
-                case 4:
-                    tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
-                    int startPositionX = SCREEN_WIDTH / 2;
-                    int startPositionY = getPositionFromIndex(i) + 50;
-                    gameCharacter.setStartPosX(startPositionX);
-                    gameCharacter.setStartPosY(startPositionY);
-                    gameCharacter.setPosition(startPositionX, startPositionY);
+            case 0:
+                tile = new GoalTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                gameCharacter.setBoundsTop(getPositionFromIndex(i));
+                break;
+            case 1:
+                tile = new RiverTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                bridgeTile =  new BridgeTile(this, bridgeStart,
+                        getPositionFromIndex(i), widths[gameMap[i]], bridgeWidth, null);
+                break;
+            case 2:
+                tile = new NewSafeTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                break;
+            case 3:
+                tile = new RoadTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                break;
+            case 4:
+                tile = new StartTile(this, 0, getPositionFromIndex(i), widths[gameMap[i]], null);
+                int startPositionX = SCREEN_WIDTH / 2;
+                int startPositionY = getPositionFromIndex(i) + 50;
+                gameCharacter.setStartPosX(startPositionX);
+                gameCharacter.setStartPosY(startPositionY);
+                gameCharacter.setPosition(startPositionX, startPositionY);
 
-                    break;
-                default:
-                    break;
+                break;
+            default:
+                break;
             }
             gameTiles[i] = tile;
             ConstraintLayout layout = findViewById(R.id.game_screen_layout);
@@ -461,7 +461,7 @@ public class GameScreen extends AppCompatActivity {
         if (gameCharacter.isGoal(getPositionFromIndex(1))) {
             Intent intentScore = new Intent(GameScreen.this, EndScreen.class);
             //win bonus score
-            score += 5000;
+            //score += 5000;
             gameCharacter.setGameWinStatus(1);
             intentScore.putExtra("WINORLOSE", 1);
             intentScore.putExtra("SAVED_SCORE", score);
@@ -525,7 +525,7 @@ public class GameScreen extends AppCompatActivity {
 
                 float diff = x - prevX;
 
-                if(log == logBoat) {
+                if (log == logBoat) {
                     character.setX(character.getX() + diff);
                     gameCharacter.setPosX(character.getX());
                 }
