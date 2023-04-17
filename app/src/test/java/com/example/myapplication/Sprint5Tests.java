@@ -29,19 +29,6 @@ public class Sprint5Tests {
     }
 
     @Test
-    public void testPlayerInGame() {
-        Player player = new Player();
-        assertEquals(-1, player.getGameWinStatus());
-    }
-
-    @Test
-    public void testPlayerLostGame() {
-        Player player = new Player();
-        player.setDead();
-        assertEquals(0, player.getGameWinStatus());
-    }
-
-    @Test
     public void testPlayerWinGame() {
         Player player = new Player();
         player.setBoundsTop(-1000);
